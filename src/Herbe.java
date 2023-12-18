@@ -1,0 +1,113 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class Herbe {
+
+    private Plantes plante;
+    private ArrayList<Zombies> zombiesList = new ArrayList<Zombies>();
+
+    public Plantes getplante() {
+        return plante;
+    }
+
+    public void addplante(Plantes plante) {
+        if (this.plante == null) {
+            this.plante = plante;
+        }
+    }
+
+    public void planteMorte() {
+        if (!plante.enVie()) {
+            plante = null;
+        }
+    }
+
+    public void addZombie(Zombies zombies) {
+        zombiesList.add(zombies);
+    }
+
+    public void zombiesMorts() {
+        Iterator<Zombies> iterator = zombiesList.iterator();
+        while (iterator.hasNext()) {
+            Zombies zombies = iterator.next();
+            if (!zombies.enVie()) {
+                iterator.remove();
+            }
+        }
+    }
+
+    public List<Zombies> getZombiesList() {
+        return zombiesList;
+    }
+
+    public Zombies getFirstZombies() {
+        if (zombiesList.size() > 0) {
+            return zombiesList.get(0);
+        }
+        return null;
+    }
+
+    public boolean contientPlante() {
+        return plante != null;
+    }
+
+    public boolean contientZombie() {
+        return zombiesList.size() > 0;
+    }
+
+    public void avancentZombies() {
+        if (!contientPlante()) {
+            for (Zombies zombies : zombiesList) {
+                zombies.avance();
+            }
+        }
+    }
+
+    public ArrayList<Zombies> deplacementZombies(int y) {
+        ArrayList<Zombies> sortieHerbes = new ArrayList<>();
+        Iterator<Zombies> iterator = zombiesList.iterator();
+        while (iterator.hasNext()) {
+            Zombies zombies = iterator.next();
+            if ((int)zombies.getY() != y) {
+                sortieHerbes.add(zombies);
+                iterator.remove();
+            }
+        }
+        return sortieHerbes;
+    }
+
+    public void attaqueZombie() {
+        if (contientPlante()) {
+            for (Zombies zombies : zombiesList) {
+                zombies.attaquer(plante);
+            }
+        }
+    }
+
+    public void attaquePlante() {
+        plante.agir(true);
+    }
+
+    public String toString() {
+        String herbe = "";
+        if (contientPlante() && contientZombie()) {
+            herbe += plante + "" + zombiesList.size();
+        } else if (contientPlante()) {
+            herbe += plante + " ";
+        } else if (contientZombie()) {
+            herbe += zombiesList.size() + " ";
+        } else {
+            herbe += "  ";
+        }
+        return herbe;
+    }
+
+    public void addAllZombies(ArrayList<Zombies> listZombies) {
+        zombiesList.addAll(listZombies);
+    }
+
+    public void killAllZombies() {
+        zombiesList.clear();
+    }
+}
