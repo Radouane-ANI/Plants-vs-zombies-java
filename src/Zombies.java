@@ -18,6 +18,10 @@ public class Zombies {
         this.timer = System.nanoTime();
     }
 
+    public static Zombies generesZombieNormale(int x){
+        return new Zombies(190,30,'n',x,9.99,1.25);
+    }
+
     public double getX() {
         return x;
     }
