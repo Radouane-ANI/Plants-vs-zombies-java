@@ -19,7 +19,7 @@ public class Zombies {
     }
 
     public static Zombies generesZombieNormale(int x){
-        return new Zombies(190,30,'n',x,9.99,1.25);
+        return new Zombies(190,30,'n',x,8.99,1.25);
     }
 
     public double getX() {

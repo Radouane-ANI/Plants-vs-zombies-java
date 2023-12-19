@@ -9,4 +9,6 @@ public interface Plantes {
     int getX();
 
     int getY();
+
+    int getCouts();
 }

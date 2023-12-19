@@ -8,6 +8,7 @@ public class Plateau {
     private boolean[] zombieLane;
     private boolean[] tondeuse;
     private boolean perdu;
+    private int nbZombies, largeur;
 
     public Plateau(int hauteur, int largeur) {
         jardin = new Herbe[hauteur][largeur];
@@ -22,6 +23,15 @@ public class Plateau {
         for (int i = 0; i < tondeuse.length; i++) {
             tondeuse[i] = true;
         }
+        this.largeur = largeur;
+    }
+
+    public int getLargeur() {
+        return largeur;
+    }
+
+    public int getNbZombies() {
+        return nbZombies;
     }
 
     public boolean isPerdu() {
@@ -33,10 +43,12 @@ public class Plateau {
     }
 
     public void etatZombieLane() {
+        nbZombies = 0;
         for (int i = 0; i < zombieLane.length; i++) {
             boolean contient = false;
             for (int j = 0; j < jardin.length; j++) {
                 if (jardin[j][i].contientZombie()) {
+                    nbZombies++;
                     contient = true;
                     jardin[j][i].avancentZombies();
                     jardin[j][i].zombiesMorts();
@@ -83,8 +95,8 @@ public class Plateau {
         }
     }
 
-    public void addPlante(Plantes plantes) {
-        jardin[plantes.getY()][plantes.getX()].addplante(plantes);
+    public boolean addPlante(Plantes plantes) {
+        return jardin[plantes.getY()][plantes.getX()].addplante(plantes);
     }
 
     public void addZombie(Zombies zombies) {
@@ -111,6 +123,12 @@ public class Plateau {
         } else {
             perdu = true;
         }
+    }
+
+    public void miseAJour() {
+        this.etatZombieLane();
+        this.etatPlante();
+        this.etatBalles();
     }
 
 }

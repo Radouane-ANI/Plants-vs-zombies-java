@@ -11,10 +11,11 @@ public class Herbe {
         return plante;
     }
 
-    public void addplante(Plantes plante) {
+    public boolean addplante(Plantes plante) {
         if (this.plante == null) {
             this.plante = plante;
-        }
+            return true;
+        }return false;
     }
 
     public void planteMorte() {
