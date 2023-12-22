@@ -1,3 +1,5 @@
+import java.awt.Image;
+
 public interface Plantes {
 
     boolean enVie();
@@ -11,4 +13,6 @@ public interface Plantes {
     int getY();
 
     int getCouts();
+
+    Image getImage();
 }

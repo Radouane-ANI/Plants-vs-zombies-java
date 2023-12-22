@@ -9,13 +9,17 @@ public class GestionnaireNiveaux {
     private int niveauEnCours;
 
     static {
-                ApparitionZombie[] n1 = { new ApparitionZombie(1, 4500L),
+        ApparitionZombie[] n1 = { new ApparitionZombie(1, 4500L),
                 new ApparitionZombie(1, 17500L),
-                new ApparitionZombie(1, 27000L),
-                new ApparitionZombie(1, 46000L),
-                new ApparitionZombie(1, 47500L) };
+                new ApparitionZombie(1, 29000L),
+                new ApparitionZombie(1, 49000L),
+                new ApparitionZombie(1, 5400L) };
         niveaux.put(1, List.of(n1));
 
+    }
+
+    public int getNiveauDebloque() {
+        return niveauDebloque;
     }
 
     public int getNiveauEnCours() {

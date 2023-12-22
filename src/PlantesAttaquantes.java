@@ -1,11 +1,16 @@
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
 public class PlantesAttaquantes implements Plantes {
     private int vie, degat;
     private char nom;
-    private long recharge;
+    private long recharge, changeImage;
     private int x, y;
-    private int couts;
+    private int couts, indiceImage;
+    private Image[] image;
 
-    public PlantesAttaquantes(int vie, int degat, char nom, int x, int y, int couts) {
+    public PlantesAttaquantes(int vie, int degat, char nom, int x, int y, int couts, String[] path) {
         this.vie = vie;
         this.degat = degat;
         this.nom = nom;
@@ -13,13 +18,19 @@ public class PlantesAttaquantes implements Plantes {
         this.x = x;
         this.y = y;
         this.couts = couts;
+        this.image = new Image[path.length];
+        for (int i = 0; i < path.length; i++) {
+            image[i] = new ImageIcon(getClass().getResource(path[i])).getImage();
+        }
+        this.changeImage = System.currentTimeMillis();
+
     }
 
     @Override
     public void agir(boolean zombieLane) {
         if (zombieLane) {
             if (System.currentTimeMillis() - recharge > 1500) {
-                Plateau.addBalle(new Balle(degat, x, y));
+                Plateau.addBalle(new Balle(degat, x, y + 0.75));
                 recharge = System.currentTimeMillis();
             }
         }
@@ -52,6 +63,19 @@ public class PlantesAttaquantes implements Plantes {
     @Override
     public int getY() {
         return y;
+    }
+
+    @Override
+    public Image getImage() {
+        if (indiceImage == image.length) {
+            indiceImage = 0;
+        }
+        if (System.currentTimeMillis() - changeImage > 500) {
+            changeImage = System.currentTimeMillis();
+            return image[indiceImage++];
+        } else {
+            return image[indiceImage];
+        }
     }
 
 }

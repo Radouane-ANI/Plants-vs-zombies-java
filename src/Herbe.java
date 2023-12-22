@@ -6,6 +6,15 @@ public class Herbe {
 
     private Plantes plante;
     private ArrayList<Zombies> zombiesList = new ArrayList<Zombies>();
+    private int y;
+
+    public Herbe() {
+
+    }
+
+    public Herbe(int y) {
+        this.y = y;
+    }
 
     public Plantes getplante() {
         return plante;
@@ -15,13 +24,16 @@ public class Herbe {
         if (this.plante == null) {
             this.plante = plante;
             return true;
-        }return false;
+        }
+        return false;
     }
 
-    public void planteMorte() {
+    public boolean planteMorte() {
         if (!plante.enVie()) {
             plante = null;
+            return true;
         }
+        return false;
     }
 
     public void addZombie(Zombies zombies) {
@@ -70,7 +82,20 @@ public class Herbe {
         Iterator<Zombies> iterator = zombiesList.iterator();
         while (iterator.hasNext()) {
             Zombies zombies = iterator.next();
-            if ((int)zombies.getY() != y) {
+            if ((int) zombies.getY() != y || zombies.getY() < 0) {
+                sortieHerbes.add(zombies);
+                iterator.remove();
+            }
+        }
+        return sortieHerbes;
+    }
+
+    public ArrayList<Zombies> deplacementZombies() {
+        ArrayList<Zombies> sortieHerbes = new ArrayList<>();
+        Iterator<Zombies> iterator = zombiesList.iterator();
+        while (iterator.hasNext()) {
+            Zombies zombies = iterator.next();
+            if ((int) zombies.getY() != y || zombies.getY() < 0) {
                 sortieHerbes.add(zombies);
                 iterator.remove();
             }
@@ -82,12 +107,15 @@ public class Herbe {
         if (contientPlante()) {
             for (Zombies zombies : zombiesList) {
                 zombies.attaquer(plante);
+                zombies.avancePas();
             }
         }
     }
 
-    public void attaquePlante() {
-        plante.agir(true);
+    public void attaquePlante(int posZombie) {
+        if (y <= posZombie) {
+            plante.agir(true);
+        }
     }
 
     public String toString() {
