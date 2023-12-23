@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class MainMenu {
 
     private GestionnaireNiveaux niveau;
@@ -8,21 +6,20 @@ public class MainMenu {
         niveau = new GestionnaireNiveaux();
     }
 
-    public void presentationMenu() {
+    public int presentationMenu() {
         niveau.niveauxPossible();
-        Scanner sc = new Scanner(System.in);
-        int choixNiveau = sc.nextInt();
-        while (!niveau.choixNiveau(choixNiveau)) {
-            if (choixNiveau == -1) {
-                System.exit(0);
-            }
-            choixNiveau = sc.nextInt();
-        }
+        return niveau.getNiveauDebloque();
     }
 
-    public void startGame() {
-        Thread threadGame = new Thread(new Game(niveau));
+    public void choixNiveau(int n) {
+        niveau.choixNiveau(n);
+    }
+
+    public Game startGame() {
+        Game g = new Game(niveau);
+        Thread threadGame = new Thread(g);
         threadGame.start();
+        return g;
     }
 
 }
