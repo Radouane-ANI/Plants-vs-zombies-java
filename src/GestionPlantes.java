@@ -28,7 +28,9 @@ public class GestionPlantes {
                 int y = sc.nextInt();
                 if (x >= 0 && y >= 0 && x < plateau.getLargeur() && y < 9) {
                     String[] img = { "/Images/peashooter1.png", "/Images/peashooter2.png" };
-                    this.ajouterPlante(new PlantesAttaquantes(130, 20, 'a', x, y, 100, img));
+                    //this.ajouterPlante(new PlantesAttaquantes(130, 20, 'a', x, y, 100, img));
+                    this.ajouterPlante(new PlantesAttaquantes(130, 'M', x, y, 100, img));
+
                 }
             }
         }

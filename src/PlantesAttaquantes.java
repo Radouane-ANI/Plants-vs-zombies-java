@@ -26,9 +26,13 @@ public class PlantesAttaquantes implements Plantes {
 
     }
 
+    public PlantesAttaquantes(int vie, char nom, int x, int y, int couts, String[] path) {
+        this(vie, 0, nom, x, y, couts, path);
+    }
+
     @Override
     public void agir(boolean zombieLane) {
-        if (zombieLane) {
+        if (degat>0 && zombieLane) {
             if (System.currentTimeMillis() - recharge > 1500) {
                 Plateau.addBalle(new Balle(degat, x, y + 0.75));
                 recharge = System.currentTimeMillis();
