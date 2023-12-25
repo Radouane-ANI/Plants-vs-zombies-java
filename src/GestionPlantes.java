@@ -35,9 +35,17 @@ public class GestionPlantes {
                     // PlantesAttaquantes a =new PlantesAttaquantes(130, 20, 'a', x, y, 100, img);
                     // this.ajouterPlante(a);
                     // Game.setPlanteCourante(a);
-                    PlantesAttaquantes b =new PlantesAttaquantes(130, 'M', x, y, 100, img);
-                    this.ajouterPlante(b);
-                    Game.setPlanteCourante(b);
+                    // PlantesAttaquantes b =new PlantesAttaquantes(130, 'M', x, y, 100, img);
+                    // this.ajouterPlante(b);
+                    // Game.setPlanteCourante(b);
+
+                    // PlanteGelee plante = new PlanteGelee(130,20, 'G', x, y, 100, img);
+                    // this.ajouterPlante(plante);
+                    // Game.setPlanteCourante(plante);
+
+                    PlanteGelee plante = new PlanteGelee(130, 20,'G', x, y, 100,img);
+                    plante.setZombiesList(plateau.getZombieslList());
+                    this.ajouterPlante(plante);
                     //this.ajouterPlante(new PlantesAttaquantes(130, 'M', x, y, 100, img));
 
                 }

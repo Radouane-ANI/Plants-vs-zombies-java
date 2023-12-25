@@ -14,7 +14,7 @@ public class App {
         fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenetre.setLocationRelativeTo(null);
         fenetre.setVisible(true);
-
+        
         showMenu();
     }
 

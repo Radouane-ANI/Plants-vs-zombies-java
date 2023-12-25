@@ -11,6 +11,9 @@ public class Zombies {
     private double vitesse;
     private int indiceImage;
 
+    private boolean ralenti;
+    private long ralentiDebut;
+
     public Zombies(int vie, int degat, String[] path, double x, double y, double vitesse) {
         this.vie = vie;
         this.degat = degat;
@@ -19,6 +22,8 @@ public class Zombies {
         this.recharge = System.currentTimeMillis();
         this.vitesse = vitesse;
         this.timer = System.nanoTime();
+        this.ralenti=false;
+        this.ralentiDebut = 0;
         this.image = new Image[path.length];
         for (int i = 0; i < path.length; i++) {
             image[i] = new ImageIcon(getClass().getResource(path[i])).getImage();
@@ -28,7 +33,7 @@ public class Zombies {
 
     public static Zombies generesZombieNormale(int x) {
         String[] images = { "/Images/zombie1.png", "/Images/zombie2.png" };
-        return new Zombies(190, 30, images, x, 8.99, 1.25);
+        return new Zombies(190, 30, images, x, 8.99, 11);
     }
 
     public double getX() {
@@ -70,10 +75,29 @@ public class Zombies {
         timer = System.nanoTime();
     }
 
+    public void ralentirDeplacement() {
+        if (!ralenti) {
+            ralenti = true;
+            ralentiDebut = System.currentTimeMillis();
+            // Réduire la vitesse des zombies à une valeur plus lente
+            vitesse = vitesse / 11;
+        }
+    }
+
+    
+
     public void avance() {
         timer = System.nanoTime() - timer;
         y = y - 1 * (vitesse * 1E-10 * timer);
         timer = System.nanoTime();
+        if (ralenti) {
+            long tempsEcoule = System.currentTimeMillis() - ralentiDebut;
+            if (tempsEcoule >= 5000) { // Si 5 secondes se sont écoulées
+                // Rétablir la vitesse normale des zombies
+                vitesse = vitesse * 2;
+                ralenti = false;
+            }
+        }
     }
 
     public Image getImage() {
@@ -91,4 +115,10 @@ public class Zombies {
     public void kill() {
         this.vie = 0;
     }
+
+    
+
+    
+
+    
 }
