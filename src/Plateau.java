@@ -11,7 +11,6 @@ public class Plateau {
     private int largeur;
     private ArrayList<Zombies> zombiesList;
     private ArrayList<Plantes> plantesList;
-    private ArrayList<Balle> zombies;
 
     public Plateau(int hauteur, int largeur) {
         jardin = new Herbe[hauteur][largeur];
@@ -168,12 +167,5 @@ public class Plateau {
         this.etatPlante();
         this.etatBalles();
     }
-
-   public Balle getZombie(int index) {
-    if (index >= 0 && index < zombies.size()) {
-        return zombies.get(index);
-    }
-    return null;
-}
 
 }

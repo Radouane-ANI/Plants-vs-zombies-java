@@ -33,7 +33,7 @@ public class Zombies {
 
     public static Zombies generesZombieNormale(int x) {
         String[] images = { "/Images/zombie1.png", "/Images/zombie2.png" };
-        return new Zombies(190, 30, images, x, 8.99, 11);
+        return new Zombies(190, 30, images, x, 8.99, 1.25);
     }
 
     public double getX() {
@@ -80,7 +80,7 @@ public class Zombies {
             ralenti = true;
             ralentiDebut = System.currentTimeMillis();
             // Réduire la vitesse des zombies à une valeur plus lente
-            vitesse = vitesse / 11;
+            vitesse = vitesse / 2;
         }
     }
 
