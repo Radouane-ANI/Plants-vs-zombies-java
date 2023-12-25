@@ -32,7 +32,7 @@ public class PlantesAttaquantes implements Plantes {
 
     @Override
     public void agir(boolean zombieLane) {
-        if (degat>0 && zombieLane) {
+        if (this.degat>0 && zombieLane) {
             if (System.currentTimeMillis() - recharge > 1500) {
                 Plateau.addBalle(new Balle(degat, x, y + 0.75));
                 recharge = System.currentTimeMillis();
@@ -68,6 +68,12 @@ public class PlantesAttaquantes implements Plantes {
     public int getY() {
         return y;
     }
+
+    public int getVie() {
+        return vie;
+    }
+
+    
 
     @Override
     public Image getImage() {

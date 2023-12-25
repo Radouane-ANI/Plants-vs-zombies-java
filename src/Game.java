@@ -8,6 +8,8 @@ public class Game implements Runnable {
     private Soleil soleil;
     private GestionPlantes gestionPlantes;
 
+    private static PlantesAttaquantes planteCourante;
+
     public Plateau getPlateau() {
         return plateau;
     }
@@ -44,6 +46,14 @@ public class Game implements Runnable {
             plateau.miseAJour();
             System.out.println(plateau);
             System.out.println("vous avez " + soleil + " soleil");
+            if (planteCourante != null) {
+                int viePlantes = planteCourante.getVie();
+                if(viePlantes > 0 ){
+                System.out.println("Vie de la plante : " + viePlantes);
+                }else{
+                    System.out.println("la plante a été détruite");
+                }
+            }
             this.gestionPlantes.placerPlante();
             App.repaint();
             Toolkit.getDefaultToolkit().sync();
@@ -58,6 +68,11 @@ public class Game implements Runnable {
             } catch (Exception e) {
             }
         }
+    }
+
+
+    public static void setPlanteCourante(PlantesAttaquantes plante) {
+        planteCourante = plante;
     }
 
     public boolean isLoose() {
