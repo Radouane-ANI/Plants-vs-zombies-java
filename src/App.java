@@ -29,4 +29,11 @@ public class App {
         fenetre.repaint();
     }
 
+    public static void showGame(Game g) {
+        fenetre.getContentPane().removeAll();
+        fenetre.getContentPane().add(new GameScene(g));
+        fenetre.revalidate();
+        fenetre.repaint();
+    }
+
 }

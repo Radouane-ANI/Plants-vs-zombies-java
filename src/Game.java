@@ -44,7 +44,7 @@ public class Game implements Runnable {
             plateau.miseAJour();
             System.out.println(plateau);
             System.out.println("vous avez " + soleil + " soleil");
-            this.gestionPlantes.placerPlante();
+            //this.gestionPlantes.placerPlante();
             App.repaint();
             Toolkit.getDefaultToolkit().sync();
             try {
