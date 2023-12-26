@@ -31,10 +31,10 @@ public class GestionPlantes {
                 int y = sc.nextInt();
                 if (x >= 0 && y >= 0 && x < plateau.getLargeur() && y < 9) {
                     String[] img = { "/Images/peashooter1.png", "/Images/peashooter2.png" };
-                   // this.ajouterPlante(new PlantesAttaquantes(130, 20, 'a', x, y, 100, img));
-                    // PlantesAttaquantes a =new PlantesAttaquantes(130, 20, 'a', x, y, 100, img);
-                    // this.ajouterPlante(a);
-                    // Game.setPlanteCourante(a);
+                //    this.ajouterPlante(new PlantesAttaquantes(130, 20, 'a', x, y, 100, img));
+                //     PlantesAttaquantes a =new PlantesAttaquantes(130, 20, 'a', x, y, 100, img);
+                //     this.ajouterPlante(a);
+                //     Game.setPlanteCourante(a);
                     // PlantesAttaquantes b =new PlantesAttaquantes(130, 'M', x, y, 100, img);
                     // this.ajouterPlante(b);
                     // Game.setPlanteCourante(b);
@@ -46,6 +46,9 @@ public class GestionPlantes {
                     PlanteGelee plante = new PlanteGelee(130, 20,'G', x, y, 100,img);
                     plante.setZombiesList(plateau.getZombieslList());
                     this.ajouterPlante(plante);
+                    Game.setPlanteCourante(plante);
+
+
                     //this.ajouterPlante(new PlantesAttaquantes(130, 'M', x, y, 100, img));
 
                 }

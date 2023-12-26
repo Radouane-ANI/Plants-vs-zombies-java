@@ -7,7 +7,7 @@ public class PlanteGelee extends PlantesAttaquantes {
     
     public PlanteGelee(int vie, int degat, char nom, int x, int y, int couts, String[] path){
         super(vie, nom, x, y, couts, path);
-        zombiesList = new ArrayList<>();
+       // zombiesList = new ArrayList<>();
     }
 
     @Override
@@ -17,7 +17,7 @@ public class PlanteGelee extends PlantesAttaquantes {
             Zombies[] zombiesDansLane = getZombiesDansLane();
             for (Zombies zombie : zombiesDansLane){
                 zombie.ralentirDeplacement();
-                System.out.println("Vitesse du zombie : " + zombie.getVitesse());
+               
             }
         }
     }

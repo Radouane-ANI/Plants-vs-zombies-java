@@ -168,4 +168,12 @@ public class Plateau {
         this.etatBalles();
     }
 
+    public ArrayList<Zombies> getZombies() {
+        return zombiesList;
+
+
+    }
+  
+
+
 }

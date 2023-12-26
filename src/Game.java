@@ -1,4 +1,5 @@
 import java.awt.Toolkit;
+import java.util.List;
 
 public class Game implements Runnable {
 
@@ -46,6 +47,11 @@ public class Game implements Runnable {
             plateau.miseAJour();
             System.out.println(plateau);
             System.out.println("vous avez " + soleil + " soleil");
+             List<Zombies> zombies = plateau.getZombies();
+        for (Zombies zombie : zombies) {
+            System.out.println("Vitesse du zombie : " + zombie.getVitesse());
+        }
+
             if (planteCourante != null) {
                 int viePlantes = planteCourante.getVie();
                 if(viePlantes > 0 ){
@@ -55,6 +61,7 @@ public class Game implements Runnable {
                 }
             }
             this.gestionPlantes.placerPlante();
+            
             App.repaint();
             Toolkit.getDefaultToolkit().sync();
             try {

@@ -22,8 +22,8 @@ public class Zombies {
         this.recharge = System.currentTimeMillis();
         this.vitesse = vitesse;
         this.timer = System.nanoTime();
-        this.ralenti=false;
-        this.ralentiDebut = 0;
+        // this.ralenti=false;
+        // this.ralentiDebut = 0;
         this.image = new Image[path.length];
         for (int i = 0; i < path.length; i++) {
             image[i] = new ImageIcon(getClass().getResource(path[i])).getImage();
@@ -33,7 +33,7 @@ public class Zombies {
 
     public static Zombies generesZombieNormale(int x) {
         String[] images = { "/Images/zombie1.png", "/Images/zombie2.png" };
-        return new Zombies(190, 30, images, x, 8.99, 1.25);
+        return new Zombies(190, 30, images, x, 8.99, 1.23);
     }
 
     public double getX() {
@@ -81,6 +81,7 @@ public class Zombies {
             ralentiDebut = System.currentTimeMillis();
             // Réduire la vitesse des zombies à une valeur plus lente
             vitesse = vitesse / 2;
+            System.out.println("Zombie ralenti ! Nouvelle vitesse : " + vitesse);
         }
     }
 
@@ -98,6 +99,7 @@ public class Zombies {
                 ralenti = false;
             }
         }
+        
     }
 
     public Image getImage() {

@@ -23,7 +23,7 @@ public class PlantesAttaquantes implements Plantes {
             image[i] = new ImageIcon(getClass().getResource(path[i])).getImage();
         }
         this.changeImage = System.currentTimeMillis();
-
+        
     }
 
     public PlantesAttaquantes(int vie, char nom, int x, int y, int couts, String[] path) {

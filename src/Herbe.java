@@ -73,7 +73,9 @@ public class Herbe {
         if (!contientPlante()) {
             for (Zombies zombies : zombiesList) {
                 zombies.avance();
+               
             }
+           
         }
     }
 
