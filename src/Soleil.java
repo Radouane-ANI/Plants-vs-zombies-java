@@ -1,14 +1,18 @@
 public class Soleil {
 
-    private int nbSoleil = 25;
+    private static int nbSoleil = 25;
     private long timer;
 
-    public int getNbSoleil() {
+    public Soleil() {
+        nbSoleil = 25;
+    }
+
+    public static int getNbSoleil() {
         return nbSoleil;
     }
 
-    public void setNbSoleil(int nbSoleil) {
-        this.nbSoleil = nbSoleil;
+    public void setNbSoleil(int nb) {
+        nbSoleil = nb;
     }
 
     public void generesSoleil() {

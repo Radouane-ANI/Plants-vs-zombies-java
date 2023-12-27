@@ -11,6 +11,7 @@ public class Plateau {
     private int largeur;
     private ArrayList<Zombies> zombiesList;
     private ArrayList<Plantes> plantesList;
+    private ArrayList<Tondeuse> tondeusesList;
 
     public Plateau(int hauteur, int largeur) {
         jardin = new Herbe[hauteur][largeur];
@@ -29,6 +30,15 @@ public class Plateau {
         this.largeur = largeur;
         this.zombiesList = new ArrayList<>();
         this.plantesList = new ArrayList<>();
+        this.tondeusesList = new ArrayList<>();
+    }
+
+    public ArrayList<Tondeuse> getTondeusesList() {
+        return tondeusesList;
+    }
+
+    public boolean[] getTondeuse() {
+        return tondeuse;
     }
 
     public int getLargeur() {
@@ -102,7 +112,7 @@ public class Plateau {
         while (iterator.hasNext()) {
             Balle balle = iterator.next();
             balle.avance();
-            if (balle.getY() > jardin.length) {
+            if (balle.getY() >= jardin.length) {
                 iterator.remove();
             } else if (jardin[(int) balle.getY()][(int) balle.getX()].contientZombie()) {
                 if (balle.toucher(jardin[(int) balle.getY()][(int) balle.getX()].getFirstZombies())) {
@@ -123,6 +133,21 @@ public class Plateau {
             jardin[y][x].attaquePlante(zombieLane[x]);
             if (jardin[y][x].planteMorte()) {
                 iterator.remove();
+            }
+        }
+    }
+
+    public void etatTondeuse() {
+        Iterator<Tondeuse> iterator = tondeusesList.iterator();
+        while (iterator.hasNext()) {
+            Tondeuse tondeuse = iterator.next();
+            int y = (int) tondeuse.getY();
+            int x = (int) tondeuse.getX();
+            tondeuse.avance();
+            if (tondeuse.getY() >= jardin.length) {
+                iterator.remove();
+            } else {
+                jardin[y][x].killAllZombies();
             }
         }
     }
@@ -153,9 +178,7 @@ public class Plateau {
 
     public void declencheTondeuse(int i) {
         if (tondeuse[i]) {
-            for (int j = 0; j < jardin.length; j++) {
-                jardin[j][i].killAllZombies();
-            }
+            tondeusesList.add(new Tondeuse(i, 0));
             tondeuse[i] = false;
         } else {
             perdu = true;
@@ -166,6 +189,7 @@ public class Plateau {
         this.etatZombieLane();
         this.etatPlante();
         this.etatBalles();
+        this.etatTondeuse();
     }
 
 }

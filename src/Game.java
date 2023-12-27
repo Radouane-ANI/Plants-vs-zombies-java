@@ -1,4 +1,4 @@
-import java.awt.Toolkit;
+import java.util.List;
 
 public class Game implements Runnable {
 
@@ -42,11 +42,10 @@ public class Game implements Runnable {
             this.ajouteZombie();
             soleil.generesSoleil();
             plateau.miseAJour();
-            System.out.println(plateau);
-            System.out.println("vous avez " + soleil + " soleil");
+            // System.out.println(plateau);
+            // System.out.println("vous avez " + soleil + " soleil");
             // this.gestionPlantes.placerPlante();
             App.repaint();
-            Toolkit.getDefaultToolkit().sync();
             try {
                 double tempsAffichage = intervalle - System.nanoTime();
                 tempsAffichage = tempsAffichage / 1000000;
@@ -88,5 +87,9 @@ public class Game implements Runnable {
 
     public void placerPlante(int x, int y, char c) {
         gestionPlantes.placerPlante(x, y, c);
+    }
+
+    public List<Character> plantesDisponibles() {
+        return gestionPlantes.plantesDisponibles();
     }
 }

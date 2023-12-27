@@ -1,3 +1,4 @@
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class App {
@@ -20,6 +21,7 @@ public class App {
 
     public static void repaint() {
         fenetre.getContentPane().repaint();
+        Toolkit.getDefaultToolkit().sync();
     }
 
     public static void showMenu() {
@@ -27,6 +29,7 @@ public class App {
         fenetre.getContentPane().add(new MenuScene());
         fenetre.revalidate();
         fenetre.repaint();
+        Toolkit.getDefaultToolkit().sync();
     }
 
     public static void showGame(Game g) {
@@ -34,6 +37,7 @@ public class App {
         fenetre.getContentPane().add(new GameScene(g));
         fenetre.revalidate();
         fenetre.repaint();
+        Toolkit.getDefaultToolkit().sync();
     }
 
 }

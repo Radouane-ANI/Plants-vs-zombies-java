@@ -14,7 +14,7 @@ public class GestionPlantes {
     }
 
     public void ajouterPlante(Plantes plantes) {
-        if (plantes.getCouts() <= soleil.getNbSoleil()) {
+        if (plantes.getCouts() <= Soleil.getNbSoleil()) {
             if (plateau.addPlante(plantes)) {
                 soleil.soustraitSoleil(plantes.getCouts());
             }
@@ -23,7 +23,7 @@ public class GestionPlantes {
 
     public void placerPlante() {
         Scanner sc = new Scanner(System.in);
-        if (soleil.getNbSoleil() >= 100) {
+        if (Soleil.getNbSoleil() >= 100) {
             System.out.println("x :");
             int x = sc.nextInt();
             if (x != -1) {
