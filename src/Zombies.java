@@ -11,8 +11,12 @@ public class Zombies {
     private double vitesse;
     private int indiceImage;
 
+    // private boolean ralenti;
+    // private long ralentiDebut;
+
     private boolean ralenti;
     private long ralentiDebut;
+    private long tempsRalenti;
 
     public Zombies(int vie, int degat, String[] path, double x, double y, double vitesse) {
         this.vie = vie;
@@ -75,31 +79,66 @@ public class Zombies {
         timer = System.nanoTime();
     }
 
-    public void ralentirDeplacement() {
-        if (!ralenti) {
-            ralenti = true;
-            ralentiDebut = System.currentTimeMillis();
-            // Réduire la vitesse des zombies à une valeur plus lente
-            vitesse = vitesse / 2;
-            System.out.println("Zombie ralenti ! Nouvelle vitesse : " + vitesse);
-        }
+    // public void ralentirDeplacement() {
+    //     if (!ralenti) {
+    //         ralenti = true;
+    //         ralentiDebut = System.currentTimeMillis();
+    //         // Réduire la vitesse des zombies à une valeur plus lente
+    //         vitesse = vitesse / 2;
+    //         System.out.println("Zombie ralenti ! Nouvelle vitesse : " + vitesse);
+    //     }
+    // }
+
+    // public void ralentirDeplacement() {
+    //     if (!ralenti) {
+    //         ralenti = true;
+    //         ralentiDebut = System.currentTimeMillis();
+    //         tempsRalenti = ralentiDebut + 5000; // Ralentissement pendant 5 secondes
+    //         // Réduire la vitesse des zombies à une valeur plus lente
+    //         vitesse = vitesse / 2;
+    //         System.out.println("Zombie ralenti ! Nouvelle vitesse : " + vitesse);
+    //     }
+    // }
+
+    // public void setDeplacementRalenti(boolean ralenti) {
+    //     this.ralenti = ralenti;
+    // }
+
+    public void setTempsRalenti(long tempsRalenti) {
+        this.tempsRalenti = tempsRalenti;
     }
+
+    public void ralentir() {
+    // Diviser la vitesse par 2
+    vitesse /= 2;
+}
+
 
     
 
+    // public void avance() {
+    //     timer = System.nanoTime() - timer;
+    //     y = y - 1 * (vitesse * 1E-10 * timer);
+    //     timer = System.nanoTime();
+    // //   //  if (ralenti) {
+    // //         long tempsEcoule = System.currentTimeMillis() - ralentiDebut;
+    // //         if (tempsEcoule >= 5000) { // Si 5 secondes se sont écoulées
+    // //             // Rétablir la vitesse normale des zombies
+    // //             vitesse = vitesse * 2;
+    // //             ralenti = false;
+    // //         }
+    // //   //  }
+        
+    // }
+
     public void avance() {
         timer = System.nanoTime() - timer;
-        y = y - 1 * (vitesse * 1E-10 * timer);
-        timer = System.nanoTime();
-        if (ralenti) {
-            long tempsEcoule = System.currentTimeMillis() - ralentiDebut;
-            if (tempsEcoule >= 5000) { // Si 5 secondes se sont écoulées
-                // Rétablir la vitesse normale des zombies
-                vitesse = vitesse * 2;
-                ralenti = false;
-            }
+        if (ralenti && System.currentTimeMillis() <= tempsRalenti) {
+            y = y - 0.5 * (vitesse * 1E-10 * timer); // Déplacement ralenti
+        } else {
+            y = y - 1 * (vitesse * 1E-10 * timer); // Déplacement normal
         }
-        
+        timer = System.nanoTime();
     }
 
     public Image getImage() {

@@ -44,7 +44,7 @@ public class GestionPlantes {
                     // Game.setPlanteCourante(plante);
 
                     PlanteGelee plante = new PlanteGelee(130, 20,'G', x, y, 100,img);
-                    plante.setZombiesList(plateau.getZombieslList());
+                   // plante.setZombiesList(plateau.getZombieslList());
                     this.ajouterPlante(plante);
                     Game.setPlanteCourante(plante);
 

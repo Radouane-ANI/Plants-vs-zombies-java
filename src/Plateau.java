@@ -5,12 +5,15 @@ public class Plateau {
 
     private Herbe[][] jardin;
     private static ArrayList<Balle> balles = new ArrayList<>();
+    private static ArrayList<BalleGelee> ballesG = new ArrayList<>();
     private int[] zombieLane;
     private boolean[] tondeuse;
     private boolean perdu;
     private int largeur;
     private ArrayList<Zombies> zombiesList;
     private ArrayList<Plantes> plantesList;
+
+    
 
     public Plateau(int hauteur, int largeur) {
         jardin = new Herbe[hauteur][largeur];
@@ -113,6 +116,24 @@ public class Plateau {
         }
     }
 
+    public void etatBalleGelee() {
+        Iterator<BalleGelee> iterator = ballesG.iterator();
+        while (iterator.hasNext()) {
+            BalleGelee balleGelee = iterator.next();
+            balleGelee.avance();
+    
+            if (balleGelee.getY() > jardin.length) {
+                iterator.remove();
+            } else if (jardin[(int) balleGelee.getY()][(int) balleGelee.getX()].contientZombie()) {
+                Zombies zombie = jardin[(int) balleGelee.getY()][(int) balleGelee.getX()].getFirstZombies();
+                balleGelee.gelee(zombie);
+                iterator.remove();
+            }
+        }
+    }
+
+    
+
     public void etatPlante() {
         Iterator<Plantes> iterator = plantesList.iterator();
         while (iterator.hasNext()) {
@@ -165,7 +186,8 @@ public class Plateau {
     public void miseAJour() {
         this.etatZombieLane();
         this.etatPlante();
-        this.etatBalles();
+        //this.etatBalles();
+        this.etatBalleGelee();
     }
 
     public ArrayList<Zombies> getZombies() {
@@ -173,7 +195,12 @@ public class Plateau {
 
 
     }
-  
+
+   public static void addBalleGelee(BalleGelee balleGelee) {
+    ballesG.add(balleGelee);
+}
+
+    
 
 
 }
