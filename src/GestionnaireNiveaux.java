@@ -4,18 +4,21 @@ import java.util.Map;
 import java.util.Random;
 
 public class GestionnaireNiveaux {
-    private static final Map<Integer, List<ApparitionZombie>> niveaux = new HashMap<>();
+    private static final Map<Integer, List<ApparitionZombie>> zombiesParNiveaux = new HashMap<>();
+    private static final Map<Integer, List<Character>> plantesParNiveaux = new HashMap<>();
     private int niveauDebloque = 1;
     private int niveauEnCours;
 
     static {
-        ApparitionZombie[] n1 = { new ApparitionZombie(1, 4500L),
+        ApparitionZombie[] z1 = { new ApparitionZombie(1, 4500L),
                 new ApparitionZombie(1, 17500L),
                 new ApparitionZombie(1, 29000L),
                 new ApparitionZombie(1, 49000L),
-                new ApparitionZombie(1, 5400L) };
-        niveaux.put(1, List.of(n1));
+                new ApparitionZombie(1, 54000L) };
+        zombiesParNiveaux.put(1, List.of(z1));
 
+        Character[] p1 = { 'a' };
+        plantesParNiveaux.put(1, List.of(p1));
     }
 
     public int getNiveauDebloque() {
@@ -36,7 +39,7 @@ public class GestionnaireNiveaux {
 
     public Zombies nextZombie(long temps) {
         Random rd = new Random();
-        for (ApparitionZombie zombie : niveaux.get(niveauEnCours)) {
+        for (ApparitionZombie zombie : zombiesParNiveaux.get(niveauEnCours)) {
             if (zombie.getApparition() < temps && !zombie.estApparu()) {
                 zombie.setEstApparu(true);
                 return Zombies.generesZombieNormale(rd.nextInt(getLargeur()));
@@ -45,8 +48,12 @@ public class GestionnaireNiveaux {
         return null;
     }
 
+    public List<Character> plantesDisponibles() {
+        return plantesParNiveaux.get(niveauEnCours);
+    }
+
     public boolean tousApparus() {
-        for (ApparitionZombie zombie : niveaux.get(niveauEnCours)) {
+        for (ApparitionZombie zombie : zombiesParNiveaux.get(niveauEnCours)) {
             if (!zombie.estApparu()) {
                 return false;
             }
@@ -55,13 +62,13 @@ public class GestionnaireNiveaux {
     }
 
     public void resetNiveau() {
-        for (ApparitionZombie zombie : niveaux.get(niveauEnCours)) {
+        for (ApparitionZombie zombie : zombiesParNiveaux.get(niveauEnCours)) {
             zombie.setEstApparu(false);
         }
     }
 
     public void debloqueNiveau() {
-        if (niveaux.size() > niveauDebloque) {
+        if (zombiesParNiveaux.size() > niveauDebloque) {
             niveauDebloque++;
         }
     }

@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 public class GameScene extends JPanel {
 
     private Image jardin;
+    private Image planche;
     private Plateau plateau;
     private int[] tailleHerbeX = { 240, 338, 411, 496, 572, 662, 738, 816, 893, 980 };
     private int[] tailleHerbeY = { 60, 176, 275, 383, 476, 573 };
@@ -14,16 +15,17 @@ public class GameScene extends JPanel {
     private Game game;
 
     public GameScene(Game game) {
-        jardin = new ImageIcon(getClass().getResource("/Images/jardin1.jpg")).getImage();
+        this.jardin = new ImageIcon(getClass().getResource("/Images/jardin" + game.getNiveau().getLargeur() + ".jpg"))
+                .getImage();
+        this.planche = new ImageIcon(getClass().getResource("/Images/planche.png")).getImage();
         this.plateau = game.getPlateau();
         this.game = game;
 
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[] img = { "/Images/peashooter1.png", "/Images/peashooter2.png" };
-                plateau.addPlante(new PlantesAttaquantes(150, 20, 'a', mettreEchelleTableauX(e.getY()),
-                        mettreEchelleTableauY(e.getX()), 100, img));
+                game.placerPlante(mettreEchelleTableauX(e.getY()),
+                        mettreEchelleTableauY(e.getX()), 'a');
             }
         });
     }
@@ -31,9 +33,10 @@ public class GameScene extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(jardin, 0, 0, null);
+        g.drawImage(planche, 20, 0, null);
         for (Zombies z : plateau.getZombieslList()) {
             g.drawImage(z.getImage(),
-                    mettreEchelleJardinX(z.getY()) - 40, (int) z.getX() * 108, null);
+                    mettreEchelleJardinX(z.getY()) - 90, mettreEchelleJardinY(z.getX()) - 80, null);
         }
 
         for (Balle b : Plateau.getBalles()) {
@@ -50,6 +53,11 @@ public class GameScene extends JPanel {
     private int mettreEchelleJardinX(double y) {
         return (int) (tailleHerbeX[(int) y]
                 + (y - (int) y) * (tailleHerbeX[(int) y + 1] - tailleHerbeX[(int) y]));
+    }
+
+    private int mettreEchelleJardinY(double x) {
+        return (int) (tailleHerbeY[(int) x]
+                + (x - (int) x) * (tailleHerbeY[(int) x + 1] - tailleHerbeY[(int) x]));
     }
 
     private int mettreEchelleTableauY(int xJardin) {

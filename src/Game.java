@@ -28,7 +28,7 @@ public class Game implements Runnable {
         this.niveau = niveau;
         this.soleil = new Soleil();
         this.plateau = new Plateau(9, niveau.getLargeur());
-        this.gestionPlantes = new GestionPlantes(plateau, soleil);
+        this.gestionPlantes = new GestionPlantes(plateau, soleil, niveau);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class Game implements Runnable {
             plateau.miseAJour();
             System.out.println(plateau);
             System.out.println("vous avez " + soleil + " soleil");
-            //this.gestionPlantes.placerPlante();
+            // this.gestionPlantes.placerPlante();
             App.repaint();
             Toolkit.getDefaultToolkit().sync();
             try {
@@ -58,6 +58,8 @@ public class Game implements Runnable {
             } catch (Exception e) {
             }
         }
+        niveau.resetNiveau();
+
     }
 
     public boolean isLoose() {
@@ -82,5 +84,9 @@ public class Game implements Runnable {
 
     public boolean jeuxEncours() {
         return !isLoose() && !isWin();
+    }
+
+    public void placerPlante(int x, int y, char c) {
+        gestionPlantes.placerPlante(x, y, c);
     }
 }

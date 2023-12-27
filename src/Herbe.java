@@ -137,6 +137,8 @@ public class Herbe {
     }
 
     public void killAllZombies() {
-        zombiesList.clear();
+        for (Zombies zombies : zombiesList) {
+            zombies.kill();
+        }
     }
 }
