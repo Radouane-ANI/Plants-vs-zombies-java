@@ -31,6 +31,11 @@ public class Zombies {
         return new Zombies(190, 30, images, x, 8.99, 1.25);
     }
 
+    public static Zombies generesZombieDrapeau(int x) {
+        String[] images = { "/Images/flagZombie1.png", "/Images/flagZombie2.png" };
+        return new Zombies(190, 30, images, x, 8.99, 1.25);
+    }
+
     public double getX() {
         return x;
     }
@@ -66,7 +71,7 @@ public class Zombies {
         this.vie -= degat;
     }
 
-    public void avancePas(){
+    public void avancePas() {
         timer = System.nanoTime();
     }
 

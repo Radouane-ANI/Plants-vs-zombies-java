@@ -13,7 +13,7 @@ public class GestionnaireNiveaux {
         ApparitionZombie[] z1 = { new ApparitionZombie(1, 4500L),
                 new ApparitionZombie(1, 17500L),
                 new ApparitionZombie(1, 29000L),
-                new ApparitionZombie(1, 49000L),
+                new ApparitionZombie(2, 49000L),
                 new ApparitionZombie(1, 54000L) };
         zombiesParNiveaux.put(1, List.of(z1));
 
@@ -42,7 +42,16 @@ public class GestionnaireNiveaux {
         for (ApparitionZombie zombie : zombiesParNiveaux.get(niveauEnCours)) {
             if (zombie.getApparition() < temps && !zombie.estApparu()) {
                 zombie.setEstApparu(true);
-                return Zombies.generesZombieNormale(rd.nextInt(getLargeur()));
+                Zombies z = null;
+                switch (zombie.getType()) {
+                    case 1:
+                        z = Zombies.generesZombieNormale(rd.nextInt(getLargeur()));
+                        break;
+                    case 2:
+                        z = Zombies.generesZombieDrapeau(rd.nextInt(getLargeur()));
+                        break;
+                }
+                return z;
             }
         }
         return null;
