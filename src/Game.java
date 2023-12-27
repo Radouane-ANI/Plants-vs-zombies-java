@@ -58,7 +58,7 @@ public class Game implements Runnable {
             }
         }
         niveau.resetNiveau();
-
+        App.showMenu();
     }
 
     public boolean isLoose() {

@@ -6,19 +6,24 @@ import java.util.Random;
 public class GestionnaireNiveaux {
     private static final Map<Integer, List<ApparitionZombie>> zombiesParNiveaux = new HashMap<>();
     private static final Map<Integer, List<Character>> plantesParNiveaux = new HashMap<>();
-    private int niveauDebloque = 1;
+    private static int niveauDebloque = 1;
     private int niveauEnCours;
 
     static {
-        ApparitionZombie[] z1 = { new ApparitionZombie(1, 4500L),
-                new ApparitionZombie(1, 17500L),
-                new ApparitionZombie(1, 29000L),
-                new ApparitionZombie(2, 49000L),
-                new ApparitionZombie(1, 54000L) };
+        ApparitionZombie[] z1 = { new ApparitionZombie(1, 4500L), new ApparitionZombie(1, 17500L),
+                new ApparitionZombie(1, 29000L), new ApparitionZombie(2, 49000L), new ApparitionZombie(1, 54000L) };
+        ApparitionZombie[] z2 = { new ApparitionZombie(1, 10500L), new ApparitionZombie(1, 17500L),
+                new ApparitionZombie(1, 25500L), new ApparitionZombie(1, 34500L), new ApparitionZombie(1, 40000L),
+                new ApparitionZombie(1, 48500L), new ApparitionZombie(1, 55000L), new ApparitionZombie(1, 62000L),
+                new ApparitionZombie(2, 62000L), new ApparitionZombie(1, 66500L), new ApparitionZombie(1, 71500L),
+                new ApparitionZombie(1, 75500L), new ApparitionZombie(1, 80500L), new ApparitionZombie(1, 85000L),
+                new ApparitionZombie(1, 89500L), };
         zombiesParNiveaux.put(1, List.of(z1));
+        zombiesParNiveaux.put(2, List.of(z2));
 
         Character[] p1 = { 'a' };
         plantesParNiveaux.put(1, List.of(p1));
+        plantesParNiveaux.put(2, List.of(p1));
     }
 
     public int getNiveauDebloque() {
