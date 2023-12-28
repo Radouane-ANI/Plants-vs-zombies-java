@@ -4,24 +4,24 @@ import java.util.Map;
 import java.util.Random;
 
 public class GestionnaireNiveaux {
-    private static final Map<Integer, List<ApparitionZombie>> zombiesParNiveaux = new HashMap<>();
-    private static final Map<Integer, List<Character>> plantesParNiveaux = new HashMap<>();
+    private static final Map<Integer, List<Paire>> zombiesParNiveaux = new HashMap<>();
+    private static final Map<Integer, List<Paire>> plantesParNiveaux = new HashMap<>();
     private static int niveauDebloque = 1;
     private int niveauEnCours;
 
     static {
-        ApparitionZombie[] z1 = { new ApparitionZombie(1, 4500L), new ApparitionZombie(1, 17500L),
-                new ApparitionZombie(1, 29000L), new ApparitionZombie(2, 49000L), new ApparitionZombie(1, 54000L) };
-        ApparitionZombie[] z2 = { new ApparitionZombie(1, 10500L), new ApparitionZombie(1, 17500L),
-                new ApparitionZombie(1, 25500L), new ApparitionZombie(1, 34500L), new ApparitionZombie(1, 40000L),
-                new ApparitionZombie(1, 48500L), new ApparitionZombie(1, 55000L), new ApparitionZombie(1, 62000L),
-                new ApparitionZombie(2, 62000L), new ApparitionZombie(1, 66500L), new ApparitionZombie(1, 71500L),
-                new ApparitionZombie(1, 75500L), new ApparitionZombie(1, 80500L), new ApparitionZombie(1, 85000L),
-                new ApparitionZombie(1, 89500L), };
+        Paire[] z1 = { new Paire(1, 4500L), new Paire(1, 17500L),
+                new Paire(1, 29000L), new Paire(2, 49000L), new Paire(1, 54000L) };
+        Paire[] z2 = { new Paire(1, 11500L), new Paire(1, 21500L),
+                new Paire(1, 31500L), new Paire(1, 40500L), new Paire(1, 53000L),
+                new Paire(1, 62500L), new Paire(1, 75000L), new Paire(1, 83000L),
+                new Paire(2, 90000L), new Paire(1, 96500L), new Paire(1, 99500L),
+                new Paire(1, 102500L), new Paire(1, 109500L), new Paire(1, 115000L),
+                new Paire(1, 119500L), };
         zombiesParNiveaux.put(1, List.of(z1));
         zombiesParNiveaux.put(2, List.of(z2));
 
-        Character[] p1 = { 'a' };
+        Paire[] p1 = { new Paire(1, 10000L) };
         plantesParNiveaux.put(1, List.of(p1));
         plantesParNiveaux.put(2, List.of(p1));
     }
@@ -44,7 +44,7 @@ public class GestionnaireNiveaux {
 
     public Zombies nextZombie(long temps) {
         Random rd = new Random();
-        for (ApparitionZombie zombie : zombiesParNiveaux.get(niveauEnCours)) {
+        for (Paire zombie : zombiesParNiveaux.get(niveauEnCours)) {
             if (zombie.getApparition() < temps && !zombie.estApparu()) {
                 zombie.setEstApparu(true);
                 Zombies z = null;
@@ -62,12 +62,12 @@ public class GestionnaireNiveaux {
         return null;
     }
 
-    public List<Character> plantesDisponibles() {
+    public List<Paire> plantesDisponibles() {
         return plantesParNiveaux.get(niveauEnCours);
     }
 
     public boolean tousApparus() {
-        for (ApparitionZombie zombie : zombiesParNiveaux.get(niveauEnCours)) {
+        for (Paire zombie : zombiesParNiveaux.get(niveauEnCours)) {
             if (!zombie.estApparu()) {
                 return false;
             }
@@ -76,7 +76,7 @@ public class GestionnaireNiveaux {
     }
 
     public void resetNiveau() {
-        for (ApparitionZombie zombie : zombiesParNiveaux.get(niveauEnCours)) {
+        for (Paire zombie : zombiesParNiveaux.get(niveauEnCours)) {
             zombie.setEstApparu(false);
         }
     }
@@ -102,12 +102,30 @@ public class GestionnaireNiveaux {
         }
     }
 
-    private static class ApparitionZombie {
-        private int type;
-        private Long apparition;
-        private boolean estApparu;
+    public double pourcentageDispo(int type) {
+        for (Paire plante : plantesParNiveaux.get(niveauEnCours)) {
+            if (plante.getType() == type) {
+                return plante.pourcentageDispo();
+            }
+        }
+        return 0;
+    }
 
-        public ApparitionZombie(int type, Long apparition) {
+    public void plantePoser(int type) {
+        for (Paire plante : plantesParNiveaux.get(niveauEnCours)) {
+            if (plante.getType() == type) {
+                plante.EstPoser();
+            }
+        }
+    }
+
+    public static class Paire {
+        private int type;
+        private long apparition;
+        private boolean estApparu;
+        private double chargement;
+
+        public Paire(int type, long apparition) {
             this.type = type;
             this.apparition = apparition;
         }
@@ -126,6 +144,14 @@ public class GestionnaireNiveaux {
 
         public void setEstApparu(boolean estApparu) {
             this.estApparu = estApparu;
+        }
+
+        public void EstPoser() {
+            chargement = System.currentTimeMillis();
+        }
+
+        public double pourcentageDispo() {
+            return (System.currentTimeMillis() - chargement) / apparition;
         }
     }
 

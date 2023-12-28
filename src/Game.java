@@ -85,11 +85,15 @@ public class Game implements Runnable {
         return !isLoose() && !isWin();
     }
 
-    public void placerPlante(int x, int y, char c) {
+    public void placerPlante(int x, int y, int c) {
         gestionPlantes.placerPlante(x, y, c);
     }
 
-    public List<Character> plantesDisponibles() {
+    public List<GestionnaireNiveaux.Paire> plantesDisponibles() {
         return gestionPlantes.plantesDisponibles();
+    }
+
+    public double pourcentageDispo(int type) {
+        return gestionPlantes.pourcentageDispo(type);
     }
 }

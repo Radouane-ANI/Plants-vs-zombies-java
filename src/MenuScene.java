@@ -6,8 +6,8 @@ public class MenuScene extends JPanel {
 
     public MenuScene() {
         MainMenu menu = new MainMenu();
-
-        for (int i = 1; i <= menu.presentationMenu(); i++) {
+        int nbNiveau = menu.presentationMenu();
+        for (int i = 1; i <= nbNiveau; i++) {
             JButton niveauButton = new JButton("Niveau : " + i);
 
             niveauButton.addActionListener(new ActionListener() {

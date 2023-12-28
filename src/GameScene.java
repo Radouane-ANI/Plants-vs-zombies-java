@@ -5,6 +5,7 @@ import java.awt.Point;
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class GameScene extends JPanel {
 
@@ -15,6 +16,7 @@ public class GameScene extends JPanel {
     private int[] tailleHerbeY = { 60, 176, 275, 383, 476, 573 };
     private JLabel nbsoleil;
     private Game game;
+    private ArrayList<Carte> listCarte;
 
     public GameScene(Game game) {
         this.setLayout(null);
@@ -23,14 +25,16 @@ public class GameScene extends JPanel {
                 .getImage();
         this.planche = new ImageIcon(getClass().getResource("/Images/planche.jpg")).getImage();
         this.game = game;
+        listCarte = new ArrayList<>();
         int decalage = 100;
-        for (Character c : game.plantesDisponibles()) {
-            Carte carte = new Carte(decalage, 8, c);
+        for (GestionnaireNiveaux.Paire c : game.plantesDisponibles()) {
+            Carte carte = new Carte(decalage, 8, c.getType());
             add(carte);
             Listener l = new Listener(carte);
             addMouseMotionListener(l);
             addMouseListener(l);
             decalage += 55;
+            listCarte.add(carte);
         }
         nbsoleil = new JLabel("25");
         nbsoleil.setBounds(48, 36, 50, 50);
@@ -43,7 +47,7 @@ public class GameScene extends JPanel {
         g.drawImage(planche, 20, 0, null);
         for (Zombies z : plateau.getZombieslList()) {
             g.drawImage(z.getImage(),
-                    mettreEchelleJardinX(z.getY()) - 90, mettreEchelleJardinY(z.getX() + 0.3) - 85, null);
+                    mettreEchelleJardinX(z.getY()) - 90, mettreEchelleJardinY(z.getX() + 0.35) - 85, null);
         }
 
         for (Balle b : Plateau.getBalles()) {
@@ -66,6 +70,10 @@ public class GameScene extends JPanel {
                 g.drawImage(tondeuse, 140, mettreEchelleJardinY(i), null);
 
             }
+        }
+
+        for (Carte carte : listCarte) {
+            carte.charge();
         }
         nbsoleil.setText(Soleil.getNbSoleil() + "");
     }
@@ -100,15 +108,23 @@ public class GameScene extends JPanel {
 
     public class Carte extends JLabel {
         private int x, y;
-        private boolean mouvement;
-        private char type;
+        private boolean mouvement, charge;
+        private int type;
 
-        public Carte(int x, int y, char type) {
+        public Carte(int x, int y, int type) {
             setIcon(new ImageIcon(getClass().getResource("/Images/peashooter1.png")));
             setBounds(x, y, 50, 60);
             this.x = x;
             this.y = y;
             this.type = type;
+        }
+
+        public void setCharge(boolean charge) {
+            this.charge = charge;
+        }
+
+        public boolean isCharge() {
+            return charge;
         }
 
         public boolean isMouvement() {
@@ -123,8 +139,19 @@ public class GameScene extends JPanel {
             setBounds(x, y, 50, 60);
         }
 
-        public void pose(int x, int y) {
+        public void posePlante(int x, int y) {
             game.placerPlante(mettreEchelleTableauX(y), mettreEchelleTableauY(x), type);
+        }
+
+        public void charge() {
+            if (!mouvement) {
+                double ratio = game.pourcentageDispo(type);
+                if (ratio > 1 || ratio < 0) {
+                    ratio = 1;
+                    charge = false;
+                }
+                setBounds(x, y, 50, (int) (60 * ratio));
+            }
         }
 
     }
@@ -140,19 +167,22 @@ public class GameScene extends JPanel {
             Point point = carte.getLocation();
             int x = point.x;
             int y = point.y;
-            if (e.getX() > x && e.getX() - x < 50 && e.getY() > y && e.getY() - y < 60) {
+            if (e.getX() > x && e.getX() - x < 50 && e.getY() > y && e.getY() - y < 60 && !carte.isCharge()) {
                 carte.setMouvement(true);
             }
         }
 
         public void mouseReleased(MouseEvent e) {
-            carte.retourPos();
-            carte.pose(e.getX(), e.getY());
-            carte.setMouvement(false);
+            if (carte.isMouvement()) {
+                carte.retourPos();
+                carte.posePlante(e.getX(), e.getY());
+                carte.setMouvement(false);
+                carte.setCharge(true);
+            }
         }
 
         public void mouseDragged(MouseEvent e) {
-            if (carte.isMouvement()) {
+            if (carte.isMouvement() && !carte.isCharge()) {
                 int x = e.getX() - 25;
                 int y = e.getY() - 30;
                 carte.setBounds(x, y, 50, 60);
