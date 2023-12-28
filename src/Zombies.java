@@ -110,8 +110,11 @@ public class Zombies {
 
     public void ralentir() {
     // Diviser la vitesse par 2
-    vitesse /= 2;
-}
+        if(vitesse>0.615){
+        vitesse /= 2;
+        }
+    
+    }
 
 
     

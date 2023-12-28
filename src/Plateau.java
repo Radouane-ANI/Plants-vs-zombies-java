@@ -75,13 +75,20 @@ public class Plateau {
                     declencheTondeuse(x);
                     zombieLane[x] = -1;
                 }
-            } else {
-                ArrayList<Zombies> changeHerbes = jardin[y][x].deplacementZombies();
-                jardin[y - 1][x].addAllZombies(changeHerbes);
-                if (changeHerbes.size() > 0) {
-                    zombieLane[x] = y - 1;
-                }
+             }  else if (y > 0) {  // Ajout de cette condition pour éviter l'exception
+             ArrayList<Zombies> changeHerbes = jardin[y][x].deplacementZombies();
+             jardin[y - 1][x].addAllZombies(changeHerbes);
+             if (changeHerbes.size() > 0) {
+                 zombieLane[x] = y - 1;
+             }
             }
+            //else {
+            //     ArrayList<Zombies> changeHerbes = jardin[y][x].deplacementZombies();
+            //     jardin[y - 1][x].addAllZombies(changeHerbes);
+            //     if (changeHerbes.size() > 0) {
+            //         zombieLane[x] = y - 1;
+            //     }
+            // }
             if (!zombie.enVie() || zombie.getY() < 0) {
                 if (zombieLane[x] == (int) zombie.getY()) {
                     zombieLane[x] = -1;
