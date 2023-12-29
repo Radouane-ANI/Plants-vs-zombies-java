@@ -5,13 +5,13 @@ import java.awt.event.ActionListener;
 
 public class MenuScene extends JPanel {
 
-    private Image jardin; // Ajout de la variable pour l'image de fond
+    private Image Accueil ; // Ajout de la variable pour l'image de fond
 
     public MenuScene() {
         MainMenu menu = new MainMenu();
 
         // Chargement de l'image de fond
-        jardin = new ImageIcon(getClass().getResource("/Images/Accueil.png")).getImage();
+        Accueil = new ImageIcon(getClass().getResource("/Images/Accueil.png")).getImage();
         
         for (int i = 1; i <= menu.presentationMenu(); i++) {
             JButton niveauButton = new JButton("Niveau : " + i);
@@ -33,6 +33,6 @@ public class MenuScene extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(jardin, 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(Accueil, 0, 0, getWidth(), getHeight(), this);
     }
 }
