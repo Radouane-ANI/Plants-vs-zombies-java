@@ -15,6 +15,4 @@ public interface Plantes {
     int getCouts();
 
     Image getImage();
-
-    int getVie();
 }
