@@ -109,7 +109,7 @@ public class Zombies {
                 @Override
                 public void run() {
                     vitesse = vitesse * 1.5;
-                    ralentie =false;
+                    ralentie = false;
                 }
             }, 3000);
         }
