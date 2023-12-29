@@ -1,4 +1,6 @@
 import java.awt.Image;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 
@@ -6,10 +8,12 @@ public class Zombies {
 
     private int vie, degat;
     private Image[] image;
-    private long recharge, timer, changeImage;
+    private long recharge, distance, changeImage;
     private double x, y;
     private double vitesse;
     private int indiceImage;
+    private boolean ralentie;
+    private static Timer timer = new Timer();
 
     public Zombies(int vie, int degat, String[] path, double x, double y, double vitesse) {
         this.vie = vie;
@@ -18,7 +22,7 @@ public class Zombies {
         this.y = y;
         this.recharge = System.currentTimeMillis();
         this.vitesse = vitesse;
-        this.timer = System.nanoTime();
+        this.distance = System.nanoTime();
         this.image = new Image[path.length];
         for (int i = 0; i < path.length; i++) {
             image[i] = new ImageIcon(getClass().getResource(path[i])).getImage();
@@ -72,13 +76,13 @@ public class Zombies {
     }
 
     public void avancePas() {
-        timer = System.nanoTime();
+        distance = System.nanoTime();
     }
 
     public void avance() {
-        timer = System.nanoTime() - timer;
-        y = y - 1 * (vitesse * 1E-10 * timer);
-        timer = System.nanoTime();
+        distance = System.nanoTime() - distance;
+        y = y - 1 * (vitesse * 1E-10 * distance);
+        distance = System.nanoTime();
     }
 
     public Image getImage() {
@@ -95,5 +99,19 @@ public class Zombies {
 
     public void kill() {
         this.vie = 0;
+    }
+
+    public void ralentir() {
+        if (!ralentie) {
+            vitesse = vitesse / 1.5;
+            ralentie = true;
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    vitesse = vitesse * 1.5;
+                    ralentie =false;
+                }
+            }, 3000);
+        }
     }
 }
