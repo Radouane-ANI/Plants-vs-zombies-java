@@ -2,15 +2,18 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class PlantesAttaquantes implements Plantes {
-    private int vie, degat;
+public class PlantesNormale implements Plantes {
+    private int vie;
+    protected int degat;
     private char nom;
-    private long recharge, changeImage;
-    private int x, y;
+    protected long recharge;
+    private long changeImage;
+    protected int x;
+    protected int y;
     private int couts, indiceImage;
     private Image[] image;
 
-    public PlantesAttaquantes(int vie, int degat, char nom, int x, int y, int couts, String[] path) {
+    public PlantesNormale(int vie, int degat, char nom, int x, int y, int couts, String[] path) {
         this.vie = vie;
         this.degat = degat;
         this.nom = nom;
@@ -23,12 +26,20 @@ public class PlantesAttaquantes implements Plantes {
             image[i] = new ImageIcon(getClass().getResource(path[i])).getImage();
         }
         this.changeImage = System.currentTimeMillis();
+    }
 
+    public static PlantesNormale generesPlantesAttaquante(int x, int y) {
+        String[] img = { "/Images/peashooter1.png", "/Images/peashooter2.png" };
+        return new PlantesNormale(130, 20, 'a', x, y, 100, img);
+    }
+
+    public static PlantesNormale generesPlantesMuraille(int x, int y) {
+        return new PlantesNormale(350, 0, 'm', x, y, 75, img);
     }
 
     @Override
     public void agir(boolean zombieLane) {
-        if (zombieLane) {
+        if (zombieLane && degat > 0) {
             if (System.currentTimeMillis() - recharge > 1500) {
                 Plateau.addBalle(new Balle(degat, x, y + 0.75));
                 recharge = System.currentTimeMillis();

@@ -7,7 +7,7 @@ public class Balle {
     private int degat;
     private double x, y;
     private long timer;
-    private Image image = new ImageIcon(getClass().getResource("/Images/balle.png")).getImage();
+    protected Image image = new ImageIcon(getClass().getResource("/Images/balle.png")).getImage();
 
     public Image getImage() {
         return image;

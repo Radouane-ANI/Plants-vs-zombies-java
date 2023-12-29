@@ -17,8 +17,16 @@ public class GestionPlantes {
         Plantes plantes = null;
         switch (type) {
             case 1:
-                String[] img = { "/Images/peashooter1.png", "/Images/peashooter2.png" };
-                plantes = new PlantesAttaquantes(130, 20, 'a', x, y, 100, img);
+                plantes = PlantesNormale.generesPlantesAttaquante(x, y);
+                break;
+            // case 2:
+            // plantes = PlantesNormale.generesPlantesAttaquante(x, y);
+            // break;
+            case 3:
+                plantes = PlantesNormale.generesPlantesMuraille(x, y);
+                break;
+            case 4:
+                plantes = new PlanteGelee(x, y);
                 break;
         }
         if (plantes != null && plantes.getCouts() <= Soleil.getNbSoleil()) {
