@@ -1,5 +1,13 @@
+import java.awt.BorderLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class App {
 
@@ -16,8 +24,37 @@ public class App {
         fenetre.setLocationRelativeTo(null);
         fenetre.setVisible(true);
 
-        showMenu();
+        // Ajouter une image de fond
+        JLabel backgroundLabel = new JLabel();
+        ImageIcon backgroundIcon = new ImageIcon(App.class.getResource("/Images/Accueil.png"));
+        backgroundLabel.setIcon(backgroundIcon);
+        fenetre.setContentPane(backgroundLabel);
+
+        backgroundLabel.setIcon(backgroundIcon);
+        fenetre.setContentPane(backgroundLabel);
+
+        fenetre.setVisible(true);
+
+        JButton jouerButton = new JButton("Jouer");
+        jouerButton.addActionListener((ActionListener) new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            fenetre.getContentPane().removeAll();
+            showMenu(); // Appelle la méthode pour afficher le menu principal
+        }
+    });
+    
+
+        backgroundLabel.setLayout(new BorderLayout());
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false);
+        buttonPanel.add(jouerButton);
+        backgroundLabel.add(buttonPanel, BorderLayout.SOUTH);
+
+        fenetre.pack();
+        fenetre.setVisible(true);
     }
+    
 
     public static void repaint() {
         fenetre.getContentPane().repaint();
@@ -39,5 +76,5 @@ public class App {
         fenetre.repaint();
         Toolkit.getDefaultToolkit().sync();
     }
-
+   
 }
