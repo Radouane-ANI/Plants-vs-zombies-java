@@ -31,16 +31,15 @@ public class GestionPlantes {
 
     public void placerPlante() {
         Scanner sc = new Scanner(System.in);
-        if (plantesDispo()) {
+        if (Soleil.getNbSoleil() >= 100) {
             System.out.println("x :");
             int x = sc.nextInt();
             if (x != -1) {
                 System.out.println("y :");
                 int y = sc.nextInt();
-                System.out.println("type :");
                 this.plantesDisponibles();
-                int t = sc.nextInt();
-                this.placerPlante(x, y, t);
+                char c = sc.next().charAt(0);
+                this.placerPlante(x, y, c);
             }
         }
     }
@@ -61,17 +60,5 @@ public class GestionPlantes {
 
     public double pourcentageDispo(int type) {
         return niveaux.pourcentageDispo(type);
-    }
-
-    public boolean plantesDispo() {
-        List<GestionnaireNiveaux.Paire> dispo = niveaux.plantesDisponibles();
-        for (GestionnaireNiveaux.Paire paire : dispo) {
-            double pourcentage = niveaux.pourcentageDispo(paire.getType());
-            if ((pourcentage >= 1 || pourcentage < 0)
-                    && niveaux.getCoutsPlante(paire.getType()) <= Soleil.getNbSoleil()) {
-                return true;
-            }
-        }
-        return false;
     }
 }

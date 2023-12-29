@@ -119,14 +119,6 @@ public class GestionnaireNiveaux {
         }
     }
 
-    public int getCoutsPlante(int type) {
-        for (Paire plante : plantesParNiveaux.get(niveauEnCours)) {
-            if (plante.getType() == type) {
-                return plante.getCouts();
-            }
-        }return Integer.MAX_VALUE;
-    }
-
     public static class Paire {
         private int type;
         private long apparition;
@@ -160,16 +152,6 @@ public class GestionnaireNiveaux {
 
         public double pourcentageDispo() {
             return (System.currentTimeMillis() - chargement) / apparition;
-        }
-
-        public int getCouts() {
-            int couts = 100;
-            switch (type) {
-                case 1:
-                    couts = 100;
-                    break;
-            }
-            return couts;
         }
     }
 
