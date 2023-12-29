@@ -124,7 +124,8 @@ public class GestionnaireNiveaux {
             if (plante.getType() == type) {
                 return plante.getCouts();
             }
-        }return Integer.MAX_VALUE;
+        }
+        return Integer.MAX_VALUE;
     }
 
     public static class Paire {

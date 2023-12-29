@@ -1,18 +1,66 @@
 import java.awt.Image;
 
-public interface Plantes {
+import javax.swing.ImageIcon;
 
-    boolean enVie();
+public abstract class Plantes {
+    private int vie;
+    protected int degat;
+    private char nom;
+    private long changeImage;
+    protected int x, y;
+    private int couts, indiceImage;
+    protected long recharge;
+    private Image[] image;
 
-    void agir(boolean zombieLane);
+    public Plantes(int vie, int degat, char nom, int x, int y, int couts, String[] path) {
+        this.vie = vie;
+        this.degat = degat;
+        this.nom = nom;
+        this.x = x;
+        this.y = y;
+        this.couts = couts;
+        this.image = new Image[path.length];
+        for (int i = 0; i < path.length; i++) {
+            image[i] = new ImageIcon(getClass().getResource(path[i])).getImage();
+        }
+        this.changeImage = System.currentTimeMillis();
+    }
 
-    void subir(int degat);
+    public abstract void agir(boolean zombieLane);
 
-    int getX();
+    public boolean enVie() {
+        return vie > 0;
+    }
 
-    int getY();
+    public int getCouts() {
+        return this.couts;
+    }
 
-    int getCouts();
+    public void subir(int degat) {
+        this.vie -= degat;
+    }
 
-    Image getImage();
+    public String toString() {
+        return nom + "";
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public Image getImage() {
+        if (indiceImage == image.length) {
+            indiceImage = 0;
+        }
+        if (System.currentTimeMillis() - changeImage > 500) {
+            changeImage = System.currentTimeMillis();
+            return image[indiceImage++];
+        } else {
+            return image[indiceImage];
+        }
+    }
 }
