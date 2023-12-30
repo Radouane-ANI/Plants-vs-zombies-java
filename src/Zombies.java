@@ -30,14 +30,27 @@ public class Zombies {
         this.changeImage = System.currentTimeMillis();
     }
 
-    public static Zombies generesZombieNormale(int x) {
-        String[] images = { "/Images/zombie1.png", "/Images/zombie2.png" };
-        return new Zombies(190, 30, images, x, 8.99, 1.25);
-    }
-
-    public static Zombies generesZombieDrapeau(int x) {
-        String[] images = { "/Images/flagZombie1.png", "/Images/flagZombie2.png" };
-        return new Zombies(190, 30, images, x, 8.99, 1.25);
+    public static Zombies generesZombie(int x, int type) {
+        Zombies z = null;
+        switch (type) {
+            case 1:
+                String[] images = { "/Images/zombie1.png", "/Images/zombie2.png" };
+                z = new Zombies(181, 30, images, x, 8.99, 1.25);
+                break;
+            case 2:
+                String[] images2 = { "/Images/flagZombie1.png", "/Images/flagZombie2.png" };
+                z = new Zombies(181, 30, images2, x, 8.99, 1.35);
+                break;
+            case 3:
+                String[] images3 = { "/Images/conezombie1.png", "/Images/conezombie2.png" };
+                z = new Zombies(551, 35, images3, x, 8.99, 1.4);
+                break;
+            case 4:
+                String[] images4 = { "/Images/seauzombie1.png", "/Images/seauzombie2.png" };
+                z = new Zombies(1281, 40, images4, x, 8.99, 1.25);
+                break;
+        }
+        return z;
     }
 
     public double getX() {
