@@ -20,12 +20,15 @@ public class GestionPlantes {
                 plantes = PlantesNormale.generesPlantesAttaquante(x, y);
                 break;
             // case 2:
-            // plantes = PlantesNormale.generesPlantesAttaquante(x, y);
+            // plantes = 
             // break;
             case 3:
                 plantes = PlantesNormale.generesPlantesMuraille(x, y);
                 break;
-            case 4:
+            // case 4:
+            //     plantes = 
+            //     break;
+            case 5:
                 plantes = new PlanteGelee(x, y);
                 break;
         }

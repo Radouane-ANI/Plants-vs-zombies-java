@@ -1,6 +1,3 @@
-import java.awt.Image;
-import javax.swing.ImageIcon;
-
 public class PlantesNormale extends Plantes {
 
     public PlantesNormale(int vie, int degat, char nom, int x, int y, int couts, String[] path) {
@@ -13,7 +10,8 @@ public class PlantesNormale extends Plantes {
     }
 
     public static PlantesNormale generesPlantesMuraille(int x, int y) {
-        return new PlantesNormale(350, 0, 'm', x, y, 75, img);
+        String[] img = { "/Images/noix1.png", "/Images/noix2.png" };
+        return new PlantesNormale(350, 0, 'm', x, y, 50, img);
     }
 
     @Override

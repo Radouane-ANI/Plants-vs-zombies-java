@@ -169,6 +169,18 @@ public class GestionnaireNiveaux {
                 case 1:
                     couts = 100;
                     break;
+                case 2:
+                    couts = 50;
+                    break;
+                case 3:
+                    couts = 50;
+                    break;
+                case 4:
+                    couts = 150;
+                    break;
+                case 5:
+                    couts = 175;
+                    break;
             }
             return couts;
         }
