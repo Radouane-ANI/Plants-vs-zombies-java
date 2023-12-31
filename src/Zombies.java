@@ -5,12 +5,12 @@ import java.util.TimerTask;
 import javax.swing.ImageIcon;
 
 public class Zombies {
-
-    private int vie, degat;
-    private Image[] image;
+    protected int vie;
+    private int degat;
+    protected Image[] image;
     private long recharge, distance, changeImage;
     private double x, y;
-    private double vitesse;
+    protected double vitesse;
     private int indiceImage;
     private boolean ralentie;
     private static Timer timer = new Timer();
@@ -39,7 +39,7 @@ public class Zombies {
                 break;
             case 2:
                 String[] images2 = { "/Images/flagZombie1.png", "/Images/flagZombie2.png" };
-                z = new Zombies(181, 30, images2, x, 8.99, 1.35);
+                z = new Zombies(181, 25, images2, x, 8.99, 1.5);
                 break;
             case 3:
                 String[] images3 = { "/Images/conezombie1.png", "/Images/conezombie2.png" };
@@ -48,6 +48,9 @@ public class Zombies {
             case 4:
                 String[] images4 = { "/Images/seauzombie1.png", "/Images/seauzombie2.png" };
                 z = new Zombies(1281, 40, images4, x, 8.99, 1.25);
+                break;
+            case 5:
+                z = new Zombiejournal(x);
                 break;
         }
         return z;
