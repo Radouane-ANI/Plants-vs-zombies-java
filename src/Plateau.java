@@ -34,7 +34,7 @@ public class Plateau {
     }
 
     public ArrayList<Tondeuse> getTondeusesList() {
-        return tondeusesList;
+        return new ArrayList<>(tondeusesList);
     }
 
     public boolean[] getTondeuse() {
@@ -58,7 +58,7 @@ public class Plateau {
     }
 
     public static ArrayList<Balle> getBalles() {
-        return balles;
+        return new ArrayList<>(balles);
     }
 
     public void etatZombieLane() {
@@ -100,11 +100,11 @@ public class Plateau {
     }
 
     public ArrayList<Zombies> getZombieslList() {
-        return zombiesList;
+        return new ArrayList<>(zombiesList); 
     }
 
     public ArrayList<Plantes> getPlanteslList() {
-        return plantesList;
+        return new ArrayList<>(plantesList);
     }
 
     public void etatBalles() {

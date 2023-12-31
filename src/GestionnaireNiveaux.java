@@ -17,13 +17,22 @@ public class GestionnaireNiveaux {
                 new Paire(1, 62500L), new Paire(1, 75000L), new Paire(1, 83000L),
                 new Paire(2, 90000L), new Paire(1, 96500L), new Paire(1, 99500L),
                 new Paire(1, 102500L), new Paire(1, 109500L), new Paire(1, 115000L),
-                new Paire(1, 119500L), };
+                new Paire(1, 119500L) };
+        Paire[] z3 = { new Paire(1, 11500L), new Paire(1, 21500L),
+                new Paire(1, 31500L), new Paire(1, 41500L), new Paire(1, 53000L),
+                new Paire(3, 62500L), new Paire(1, 77000L), new Paire(3, 86000L),
+                new Paire(2, 97000L), new Paire(3, 100500L), new Paire(1, 104500L),
+                new Paire(1, 107500L), new Paire(4, 109500L), new Paire(1, 115000L),
+                new Paire(1, 119500L), new Paire(3, 124500L), new Paire(1, 129500L) };
         zombiesParNiveaux.put(1, List.of(z1));
         zombiesParNiveaux.put(2, List.of(z2));
+        zombiesParNiveaux.put(3, List.of(z3));
 
-        Paire[] p1 = { new Paire(1, 10000L) };
-        plantesParNiveaux.put(1, List.of(p1));
-        plantesParNiveaux.put(2, List.of(p1));
+        Paire[] pairePlante = { new Paire(1, 10000L), new Paire(2, 8000L), new Paire(3, 10000L), new Paire(4, 20000L),
+                new Paire(5, 10000L) };
+        plantesParNiveaux.put(1, List.of(pairePlante[0]));
+        plantesParNiveaux.put(2, List.of(pairePlante[0], pairePlante[1]));
+        plantesParNiveaux.put(3, List.of(pairePlante[0], pairePlante[1], pairePlante[2]));
     }
 
     public int getNiveauDebloque() {
@@ -47,16 +56,7 @@ public class GestionnaireNiveaux {
         for (Paire zombie : zombiesParNiveaux.get(niveauEnCours)) {
             if (zombie.getApparition() < temps && !zombie.estApparu()) {
                 zombie.setEstApparu(true);
-                Zombies z = null;
-                switch (zombie.getType()) {
-                    case 1:
-                        z = Zombies.generesZombieNormale(rd.nextInt(getLargeur()));
-                        break;
-                    case 2:
-                        z = Zombies.generesZombieDrapeau(rd.nextInt(getLargeur()));
-                        break;
-                }
-                return z;
+                return Zombies.generesZombie(rd.nextInt(getLargeur()), zombie.type);
             }
         }
         return null;
@@ -168,6 +168,18 @@ public class GestionnaireNiveaux {
             switch (type) {
                 case 1:
                     couts = 100;
+                    break;
+                case 2:
+                    couts = 50;
+                    break;
+                case 3:
+                    couts = 50;
+                    break;
+                case 4:
+                    couts = 150;
+                    break;
+                case 5:
+                    couts = 175;
                     break;
             }
             return couts;

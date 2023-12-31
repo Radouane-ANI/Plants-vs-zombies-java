@@ -112,7 +112,7 @@ public class GameScene extends JPanel {
         private int type;
 
         public Carte(int x, int y, int type) {
-            setIcon(new ImageIcon(getClass().getResource("/Images/peashooter1.png")));
+            setIcon(new ImageIcon(getClass().getResource("/Images/carte" + type + ".jpeg")));
             setBounds(x, y, 50, 60);
             this.x = x;
             this.y = y;
