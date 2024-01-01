@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Plateau {
 
@@ -100,7 +101,7 @@ public class Plateau {
     }
 
     public ArrayList<Zombies> getZombieslList() {
-        return new ArrayList<>(zombiesList); 
+        return new ArrayList<>(zombiesList);
     }
 
     public ArrayList<Plantes> getPlanteslList() {
@@ -130,11 +131,44 @@ public class Plateau {
 
             int y = plante.getY();
             int x = plante.getX();
-            jardin[y][x].attaquePlante(zombieLane[x]);
+            
+            List<Zombies> zombiesAdjacents = getZombiesAdjacents(y, x);
+            jardin[y][x].attaquePlante(zombieLane[x], zombiesAdjacents);
             if (jardin[y][x].planteMorte()) {
                 iterator.remove();
             }
         }
+    }
+
+    private List<Zombies> getZombiesAdjacents(int y, int x) {
+        List<Zombies> zombiesAdjacents = new ArrayList<>();
+        zombiesAdjacents.addAll(jardin[y][x].getZombiesList());
+
+        if (y < jardin.length - 1) {
+            zombiesAdjacents.addAll(jardin[y + 1][x].getZombiesList());
+        }
+        if (y > 0) {
+            zombiesAdjacents.addAll(jardin[y - 1][x].getZombiesList());
+        }
+        if (x > 0) {
+            zombiesAdjacents.addAll(jardin[y][x - 1].getZombiesList());
+        }
+        if (x < jardin[0].length - 1) {
+            zombiesAdjacents.addAll(jardin[y][x + 1].getZombiesList());
+        }
+        if (y < jardin.length - 1 && x < jardin[0].length - 1) {
+            zombiesAdjacents.addAll(jardin[y + 1][x + 1].getZombiesList());
+        }
+        if (y > 0 && x > 0) {
+            zombiesAdjacents.addAll(jardin[y - 1][x - 1].getZombiesList());
+        }
+        if (y < jardin.length - 1 && x > 0) {
+            zombiesAdjacents.addAll(jardin[y + 1][x - 1].getZombiesList());
+        }
+        if (y > 0 && x < jardin[0].length - 1) {
+            zombiesAdjacents.addAll(jardin[y - 1][x + 1].getZombiesList());
+        }
+        return zombiesAdjacents;
     }
 
     public void etatTondeuse() {

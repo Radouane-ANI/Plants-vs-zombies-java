@@ -1,9 +1,10 @@
 import java.awt.Image;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 
 public abstract class Plantes {
-    private int vie;
+    protected int vie;
     protected int degat;
     private char nom;
     private long changeImage;
@@ -26,7 +27,7 @@ public abstract class Plantes {
         this.changeImage = System.currentTimeMillis();
     }
 
-    public abstract void agir(boolean zombieLane);
+    public abstract void agir(boolean zombieLane, List<Zombies> zombiesAdjacents);
 
     public boolean enVie() {
         return vie > 0;

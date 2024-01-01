@@ -112,9 +112,11 @@ public class Herbe {
         }
     }
 
-    public void attaquePlante(int posZombie) {
+    public void attaquePlante(int posZombie, List<Zombies> zombiesAdjacents) {
         if (y <= posZombie) {
-            plante.agir(true);
+            plante.agir(true, zombiesAdjacents);
+        } else {
+            plante.agir(false, zombiesAdjacents);
         }
     }
 
