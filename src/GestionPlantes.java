@@ -20,9 +20,9 @@ public class GestionPlantes {
             case 1:
                 plantes = PlantesNormale.generesPlantesAttaquante(x, y);
                 break;
-            // case 2:
-            // plantes =
-            // break;
+            case 2:
+                plantes = new Tournesol(x,y);
+                break;
             case 3:
                 plantes = PlantesNormale.generesPlantesMuraille(x, y);
                 break;
