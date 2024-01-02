@@ -43,6 +43,7 @@ public class GestionPlantes {
 
     public void placerPlante() {
         if (plantesDispo()) {
+            System.out.println("vous placez une plante");
             System.out.println("x :");
             int x = sc.nextInt();
             if (x != -1) {
@@ -56,6 +57,22 @@ public class GestionPlantes {
             if (x == -1) {
                 System.exit(0);
             }
+        }
+    }
+
+    public void placerArrosoir() {
+        System.out.println("vous placez un arrosoir");
+        System.out.println("x :");
+        int x = sc.nextInt();
+        if (x != -1) {
+            System.out.println("y :");
+            int y = sc.nextInt();
+            if (!plateau.arrose(x, y)) {
+                plateau.addArrosoir();
+            }
+        }
+        if (x == -1) {
+            System.exit(0);
         }
     }
 

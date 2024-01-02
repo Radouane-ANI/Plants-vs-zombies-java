@@ -5,7 +5,7 @@ public class Arrosoir extends GameScene.Carte {
     private GameScene gameScene;
 
     public Arrosoir(GameScene gameScene) {
-        gameScene.super(50, 50 + rd.nextInt(350), 0);
+        gameScene.super(50, 50 + rd.nextInt(350), "/Images/arrosoir.png");
         this.gameScene = gameScene;
     }
 

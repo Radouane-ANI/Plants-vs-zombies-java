@@ -4,7 +4,7 @@ public class Game implements Runnable {
 
     private Plateau plateau;
     private GestionnaireNiveaux niveau;
-    private Long temps;
+    private long temps, tempsTextuel;
     private Soleil soleil;
     private GestionPlantes gestionPlantes;
     private boolean graphique;
@@ -37,6 +37,7 @@ public class Game implements Runnable {
     public void run() {
         double intervalle = System.nanoTime() + 1000000000 / 60;
         temps = System.currentTimeMillis();
+        tempsTextuel = System.currentTimeMillis();
         while (jeuxEncours()) {
             this.ajouteZombie();
             soleil.generesSoleil();
@@ -62,12 +63,19 @@ public class Game implements Runnable {
     }
 
     public void affichageTerminal() {
-        System.out.println("pour poser une plante vous devez d'abord donner sa coordonnee en x puis y");
-        System.out.println("x compris entre 0 et " + (niveau.getLargeur() - 1) + " et y compris entre 0 et 8");
-        System.out.println("si vous ne voulez rien poser entrez -1");
         System.out.println("vous avez " + soleil + " soleil");
         System.out.println(plateau);
-        this.gestionPlantes.placerPlante();
+        if (System.currentTimeMillis() - tempsTextuel > 7000) {
+            System.out.println("pour poser une plante vous devez d'abord donner sa coordonnee en x puis y");
+            System.out.println("x compris entre 0 et " + (niveau.getLargeur() - 1) + " et y compris entre 0 et 8");
+            System.out.println("si vous ne voulez rien poser entrez -1");
+            System.out.println();
+            this.gestionPlantes.placerPlante();
+            if (getArrosoir() > 0) {
+                this.gestionPlantes.placerArrosoir();
+            }
+            tempsTextuel = System.currentTimeMillis();
+        }
     }
 
     public boolean isLoose() {

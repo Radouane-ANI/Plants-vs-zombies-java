@@ -121,6 +121,14 @@ public class GameScene extends JPanel {
         private boolean mouvement, charge;
         private int type;
 
+        public Carte(int x, int y, String path) {
+            setIcon(new ImageIcon(getClass().getResource(path)));
+            setBounds(x, y, 50, 60);
+            this.x = x;
+            this.y = y;
+
+        }
+
         public Carte(int x, int y, int type) {
             setIcon(new ImageIcon(getClass().getResource("/Images/carte" + type + ".jpeg")));
             setBounds(x, y, 50, 60);
