@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,39 +11,44 @@ public class GestionnaireNiveaux {
     private int niveauEnCours;
 
     static {
-        Paire[] z1 = { new Paire(1, 4500L), new Paire(1, 17500L),
-                new Paire(1, 29000L), new Paire(2, 49000L), new Paire(1, 54000L) };
-        Paire[] z2 = { new Paire(1, 11500L), new Paire(1, 21500L),
-                new Paire(1, 31500L), new Paire(1, 40500L), new Paire(1, 53000L),
-                new Paire(1, 62500L), new Paire(1, 75000L), new Paire(1, 83000L),
-                new Paire(2, 90000L), new Paire(1, 96500L), new Paire(1, 99500L),
-                new Paire(1, 102500L), new Paire(1, 109500L), new Paire(1, 115000L),
-                new Paire(1, 119500L) };
-        Paire[] z3 = {
-                new Paire(1, 12500L), new Paire(1, 23500L),
-                new Paire(1, 35500L), new Paire(1, 48500L), new Paire(1, 60000L),
-                new Paire(3, 70500L), new Paire(1, 84000L), new Paire(3, 95000L),
-                new Paire(2, 106000L), new Paire(3, 117500L), new Paire(1, 122500L),
-                new Paire(1, 130000L), new Paire(4, 138000L), new Paire(1, 144500L),
-                new Paire(1, 150000L), new Paire(3, 156500L), new Paire(1, 162500L) };
-        Paire[] z4 = {
-                new Paire(1, 12000L), new Paire(1, 21500L), new Paire(1, 32500L), new Paire(3, 36000L),
-                new Paire(1, 46000L), new Paire(1, 56000L), new Paire(1, 67000L), new Paire(4, 78000L),
-                new Paire(1, 89000L), new Paire(1, 91000L), new Paire(1, 103000L), new Paire(2, 114000L),
-                new Paire(3, 119000L), new Paire(1, 124000L), new Paire(3, 129000L), new Paire(4, 134000L),
-                new Paire(3, 139000L), new Paire(1, 144000L), new Paire(1, 149000L), new Paire(3, 154000L),
-                new Paire(4, 159000L), new Paire(1, 165000L), new Paire(4, 169000L), new Paire(1, 172000L) };
-        zombiesParNiveaux.put(1, List.of(z1));
-        zombiesParNiveaux.put(2, List.of(z2));
-        zombiesParNiveaux.put(3, List.of(z3));
-        zombiesParNiveaux.put(4, List.of(z4));
+        zombiesParNiveaux.put(1, genereNiveau(5, 1, 4500L));
+        zombiesParNiveaux.put(2, genereNiveau(14, 1, 11500L));
+        zombiesParNiveaux.put(3, genereNiveau(18, 3, 12500L));
+        zombiesParNiveaux.put(4, genereNiveau(25, 4, 12123L));
+        zombiesParNiveaux.put(5, genereNiveau(30, 4, 12123L));
+        zombiesParNiveaux.put(6, genereNiveau(32, 5, 12123L));
 
         Paire[] pairePlante = { new Paire(1, 5000L), new Paire(2, 8000L), new Paire(3, 10000L), new Paire(4, 20000L),
                 new Paire(5, 10000L) };
         plantesParNiveaux.put(1, List.of(pairePlante[0]));
         plantesParNiveaux.put(2, List.of(pairePlante[0], pairePlante[1]));
         plantesParNiveaux.put(3, List.of(pairePlante[0], pairePlante[1], pairePlante[3]));
-        plantesParNiveaux.put(4, List.of(pairePlante[0], pairePlante[1], pairePlante[2], pairePlante[4], pairePlante[3]));
+        plantesParNiveaux.put(4,
+                List.of(pairePlante[0], pairePlante[1], pairePlante[2], pairePlante[4], pairePlante[3]));
+        plantesParNiveaux.put(5,
+                List.of(pairePlante[0], pairePlante[1], pairePlante[2], pairePlante[3], pairePlante[4]));
+        plantesParNiveaux.put(6,
+                List.of(pairePlante[0], pairePlante[1], pairePlante[2], pairePlante[3], pairePlante[4]));
+
+    }
+
+    public static List<Paire> genereNiveau(int nbZombies, int typeMax, long premier) {
+        List<Paire> l = new ArrayList<>();
+        l.add(new Paire(1, premier));
+        for (int i = 5; i <= nbZombies + 3; i++) {
+            int type = (int) ((premier % typeMax) == 0 ? 1 : (premier % typeMax));
+            if (i > (nbZombies + 7) / 2) {
+                premier += Math.max(40000 / nbZombies + i, Math.min(7000 + i, (Math.log(i) / Math.log(2)) * 1330));
+                l.add(new Paire(type, premier));
+            } else if (i == (nbZombies + 7) / 2) {
+                premier += 20456;
+                l.add(new Paire(-1, premier));
+            } else {
+                premier += Math.min(18000 + i, Math.max(12000 + i, (Math.log(i) / Math.log(2)) * 6000));
+                l.add(new Paire(type, premier));
+            }
+        }
+        return l;
     }
 
     public int getNiveauDebloque() {

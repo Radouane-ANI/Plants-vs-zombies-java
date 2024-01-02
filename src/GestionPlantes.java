@@ -6,6 +6,7 @@ public class GestionPlantes {
     private Plateau plateau;
     private Soleil soleil;
     private GestionnaireNiveaux niveaux;
+    private Scanner sc = new Scanner(System.in);
 
     public GestionPlantes(Plateau plateau, Soleil soleil, GestionnaireNiveaux niveaux) {
         this.plateau = plateau;
@@ -20,7 +21,7 @@ public class GestionPlantes {
                 plantes = PlantesNormale.generesPlantesAttaquante(x, y);
                 break;
             // case 2:
-            // plantes = 
+            // plantes =
             // break;
             case 3:
                 plantes = PlantesNormale.generesPlantesMuraille(x, y);
@@ -41,7 +42,6 @@ public class GestionPlantes {
     }
 
     public void placerPlante() {
-        Scanner sc = new Scanner(System.in);
         if (plantesDispo()) {
             System.out.println("x :");
             int x = sc.nextInt();
@@ -52,6 +52,9 @@ public class GestionPlantes {
                 this.plantesDisponibles();
                 int t = sc.nextInt();
                 this.placerPlante(x, y, t);
+            }
+            if (x == -1) {
+                System.exit(0);
             }
         }
     }

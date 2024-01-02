@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 public class App {
 
     private static JFrame fenetre;
+    private static boolean visible = true;
 
     public static JFrame getFenetre() {
         return fenetre;
@@ -19,17 +20,28 @@ public class App {
         showMenu();
     }
 
+    public static void setVisible(boolean graphique) {
+        fenetre.setVisible(graphique);
+        visible = graphique;
+    }
+
     public static void repaint() {
         fenetre.getContentPane().repaint();
         Toolkit.getDefaultToolkit().sync();
     }
 
     public static void showMenu() {
-        fenetre.getContentPane().removeAll();
-        fenetre.getContentPane().add(new MenuScene());
-        fenetre.revalidate();
-        fenetre.repaint();
-        Toolkit.getDefaultToolkit().sync();
+        if (visible) {
+            fenetre.getContentPane().removeAll();
+            fenetre.getContentPane().add(new MenuScene());
+            fenetre.revalidate();
+            fenetre.repaint();
+            Toolkit.getDefaultToolkit().sync();
+        } else {
+            MainMenu menu = new MainMenu(false);
+            menu.presentationMenu();
+            menu.choixNiveau();
+        }
     }
 
     public static void showGame(Game g) {

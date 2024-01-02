@@ -7,6 +7,7 @@ public class Game implements Runnable {
     private Long temps;
     private Soleil soleil;
     private GestionPlantes gestionPlantes;
+    private boolean graphique;
 
     public Plateau getPlateau() {
         return plateau;
@@ -24,28 +25,27 @@ public class Game implements Runnable {
         return gestionPlantes;
     }
 
-    public Game(GestionnaireNiveaux niveau) {
+    public Game(GestionnaireNiveaux niveau, boolean graphique) {
         this.niveau = niveau;
         this.soleil = new Soleil();
         this.plateau = new Plateau(9, niveau.getLargeur());
         this.gestionPlantes = new GestionPlantes(plateau, soleil, niveau);
+        this.graphique = graphique;
     }
 
     @Override
     public void run() {
         double intervalle = System.nanoTime() + 1000000000 / 60;
         temps = System.currentTimeMillis();
-        System.out.println("pour poser une plante vous devez d'abord donner sa coordonnee en x puis y");
-        System.out.println("x compris entre 0 et " + (niveau.getLargeur() - 1) + " et y compris entre 0 et 9");
-        System.out.println("si vous ne voulez rien poser taper entrer -1 pour x");
         while (jeuxEncours()) {
             this.ajouteZombie();
             soleil.generesSoleil();
             plateau.miseAJour();
-            // System.out.println(plateau);
-            // System.out.println("vous avez " + soleil + " soleil");
-            //this.gestionPlantes.placerPlante();
-            App.repaint();
+            if (graphique) {
+                App.repaint();
+            } else {
+                affichageTerminal();
+            }
             try {
                 double tempsAffichage = intervalle - System.nanoTime();
                 tempsAffichage = tempsAffichage / 1000000;
@@ -59,6 +59,15 @@ public class Game implements Runnable {
         }
         niveau.resetNiveau();
         App.showMenu();
+    }
+
+    public void affichageTerminal() {
+        System.out.println("pour poser une plante vous devez d'abord donner sa coordonnee en x puis y");
+        System.out.println("x compris entre 0 et " + (niveau.getLargeur() - 1) + " et y compris entre 0 et 8");
+        System.out.println("si vous ne voulez rien poser entrez -1");
+        System.out.println("vous avez " + soleil + " soleil");
+        System.out.println(plateau);
+        this.gestionPlantes.placerPlante();
     }
 
     public boolean isLoose() {
