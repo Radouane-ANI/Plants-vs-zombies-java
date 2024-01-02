@@ -14,8 +14,9 @@ public class Zombies {
     private int indiceImage;
     private boolean ralentie;
     private static Timer timer = new Timer();
+    private char nom;
 
-    public Zombies(int vie, int degat, String[] path, double x, double y, double vitesse) {
+    public Zombies(int vie, int degat, String[] path, double x, double y, double vitesse, char nom) {
         this.vie = vie;
         this.degat = degat;
         this.x = x;
@@ -28,6 +29,7 @@ public class Zombies {
             image[i] = new ImageIcon(getClass().getResource(path[i])).getImage();
         }
         this.changeImage = System.currentTimeMillis();
+        this.nom = nom;
     }
 
     public static Zombies generesZombie(int x, int type) {
@@ -35,21 +37,21 @@ public class Zombies {
         switch (type) {
             case 1:
                 String[] images = { "/Images/zombie1.png", "/Images/zombie2.png" };
-                z = new Zombies(181, 30, images, x, 8.99, 1.25);
+                z = new Zombies(181, 30, images, x, 8.99, 1.25, 'n');
+                break;
+            case -1:
+                String[] images2 = { "/Images/flagZombie1.png", "/Images/flagZombie2.png" };
+                z = new Zombies(181, 25, images2, x, 8.99, 1.5, 'd');
                 break;
             case 2:
-                String[] images2 = { "/Images/flagZombie1.png", "/Images/flagZombie2.png" };
-                z = new Zombies(181, 25, images2, x, 8.99, 1.5);
+                String[] images3 = { "/Images/conezombie1.png", "/Images/conezombie2.png" };
+                z = new Zombies(551, 35, images3, x, 8.99, 1.45, 'c');
                 break;
             case 3:
-                String[] images3 = { "/Images/conezombie1.png", "/Images/conezombie2.png" };
-                z = new Zombies(551, 35, images3, x, 8.99, 1.4);
+                String[] images4 = { "/Images/seauzombie1.png", "/Images/seauzombie2.png" };
+                z = new Zombies(1281, 40, images4, x, 8.99, 1.1, 's');
                 break;
             case 4:
-                String[] images4 = { "/Images/seauzombie1.png", "/Images/seauzombie2.png" };
-                z = new Zombies(1281, 40, images4, x, 8.99, 1.25);
-                break;
-            case 5:
                 z = new Zombiejournal(x);
                 break;
         }
@@ -129,5 +131,10 @@ public class Zombies {
                 }
             }, 3000);
         }
+    }
+
+    @Override
+    public String toString() {
+        return nom + "";
     }
 }

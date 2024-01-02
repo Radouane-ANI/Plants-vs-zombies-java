@@ -127,7 +127,12 @@ public class Herbe {
         } else if (contientPlante()) {
             herbe += plante + " ";
         } else if (contientZombie()) {
-            herbe += zombiesList.size() + " ";
+            if (zombiesList.size() > 1) {
+                herbe += zombiesList.get(0) + "" + zombiesList.size();
+            }
+            if (zombiesList.size() == 1) {
+                herbe += zombiesList.get(0) + " ";
+            }
         } else {
             herbe += "  ";
         }

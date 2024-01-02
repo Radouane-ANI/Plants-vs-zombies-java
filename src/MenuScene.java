@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 public class MenuScene extends JPanel {
 
     public MenuScene() {
-        MainMenu menu = new MainMenu();
+        MainMenu menu = new MainMenu(true);
         int nbNiveau = menu.presentationMenu();
         for (int i = 1; i <= nbNiveau; i++) {
             JButton niveauButton = new JButton("Niveau : " + i);
@@ -22,5 +22,15 @@ public class MenuScene extends JPanel {
 
             add(niveauButton);
         }
+        JButton textuelButton = new JButton("mode textuel");
+        textuelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menu.setGraphique(false);
+                menu.choixNiveau();
+            }
+
+        });
+        add(textuelButton);
     }
 }
