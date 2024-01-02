@@ -68,7 +68,6 @@ public class GameScene extends JPanel {
         for (int i = 0; i < plateau.getTondeuse().length; i++) {
             if (plateau.getTondeuse()[i]) {
                 g.drawImage(tondeuse, 140, mettreEchelleJardinY(i), null);
-
             }
         }
 
@@ -76,6 +75,13 @@ public class GameScene extends JPanel {
             carte.charge();
         }
         nbsoleil.setText(Soleil.getNbSoleil() + "");
+        if (game.getArrosoir() > 0) {
+            Arrosoir arrosoir = new Arrosoir(this);
+            add(arrosoir);
+            Listener l = new Listener(arrosoir);
+            addMouseMotionListener(l);
+            addMouseListener(l);
+        }
     }
 
     private int mettreEchelleJardinX(double y) {
@@ -104,6 +110,10 @@ public class GameScene extends JPanel {
             }
         }
         return tailleHerbeY.length;
+    }
+
+    public boolean arrose(int x, int y) {
+        return game.arrose(mettreEchelleTableauX(y), mettreEchelleTableauY(x));
     }
 
     public class Carte extends JLabel {
@@ -145,6 +155,7 @@ public class GameScene extends JPanel {
 
         public void charge() {
             if (!mouvement) {
+                charge = true;
                 double ratio = game.pourcentageDispo(type);
                 if (ratio > 1 || ratio < 0) {
                     ratio = 1;
@@ -177,7 +188,6 @@ public class GameScene extends JPanel {
                 carte.retourPos();
                 carte.posePlante(e.getX(), e.getY());
                 carte.setMouvement(false);
-                carte.setCharge(true);
             }
         }
 

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Iterator;
-import java.util.List;
 
 public class Plateau {
 
@@ -13,6 +13,7 @@ public class Plateau {
     private ArrayList<Zombies> zombiesList;
     private ArrayList<Plantes> plantesList;
     private ArrayList<Tondeuse> tondeusesList;
+    private int arrosoir;
 
     public Plateau(int hauteur, int largeur) {
         jardin = new Herbe[hauteur][largeur];
@@ -58,6 +59,17 @@ public class Plateau {
         balles.add(balle);
     }
 
+    public int getArrosoir() {
+        if (arrosoir > 0) {
+            return arrosoir--;
+        }
+        return arrosoir;
+    }
+
+    public void addArrosoir() {
+        arrosoir++;
+    }
+
     public static ArrayList<Balle> getBalles() {
         return new ArrayList<>(balles);
     }
@@ -94,6 +106,9 @@ public class Plateau {
                 if (zombieLane[x] == (int) zombie.getY()) {
                     zombieLane[x] = -1;
                 }
+                Random rd = new Random();
+                if (rd.nextInt(10) == 6)
+                    addArrosoir();
                 iterator.remove();
             }
         }
@@ -131,44 +146,12 @@ public class Plateau {
 
             int y = plante.getY();
             int x = plante.getX();
-            
-            List<Zombies> zombiesAdjacents = getZombiesAdjacents(y, x);
-            jardin[y][x].attaquePlante(zombieLane[x], zombiesAdjacents);
+
+            jardin[y][x].attaquePlante(zombieLane[x], zombiesList);
             if (jardin[y][x].planteMorte()) {
                 iterator.remove();
             }
         }
-    }
-
-    private List<Zombies> getZombiesAdjacents(int y, int x) {
-        List<Zombies> zombiesAdjacents = new ArrayList<>();
-        zombiesAdjacents.addAll(jardin[y][x].getZombiesList());
-
-        if (y < jardin.length - 1) {
-            zombiesAdjacents.addAll(jardin[y + 1][x].getZombiesList());
-        }
-        if (y > 0) {
-            zombiesAdjacents.addAll(jardin[y - 1][x].getZombiesList());
-        }
-        if (x > 0) {
-            zombiesAdjacents.addAll(jardin[y][x - 1].getZombiesList());
-        }
-        if (x < jardin[0].length - 1) {
-            zombiesAdjacents.addAll(jardin[y][x + 1].getZombiesList());
-        }
-        if (y < jardin.length - 1 && x < jardin[0].length - 1) {
-            zombiesAdjacents.addAll(jardin[y + 1][x + 1].getZombiesList());
-        }
-        if (y > 0 && x > 0) {
-            zombiesAdjacents.addAll(jardin[y - 1][x - 1].getZombiesList());
-        }
-        if (y < jardin.length - 1 && x > 0) {
-            zombiesAdjacents.addAll(jardin[y + 1][x - 1].getZombiesList());
-        }
-        if (y > 0 && x < jardin[0].length - 1) {
-            zombiesAdjacents.addAll(jardin[y - 1][x + 1].getZombiesList());
-        }
-        return zombiesAdjacents;
     }
 
     public void etatTondeuse() {
@@ -220,10 +203,16 @@ public class Plateau {
     }
 
     public void miseAJour() {
+        this.etatTondeuse();
         this.etatZombieLane();
         this.etatPlante();
         this.etatBalles();
-        this.etatTondeuse();
     }
 
+    public boolean arrose(int x, int y) {
+        if (x >= 0 && y >= 0 && x < jardin[0].length && y < 9) {
+            return jardin[y][x].arrose();
+        }
+        return false;
+    }
 }

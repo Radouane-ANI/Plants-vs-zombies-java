@@ -1,6 +1,6 @@
 public class Soleil {
 
-    private static int nbSoleil = 25;
+    private static int nbSoleil;
     private long timer;
 
     public Soleil() {

@@ -105,4 +105,12 @@ public class Game implements Runnable {
     public double pourcentageDispo(int type) {
         return gestionPlantes.pourcentageDispo(type);
     }
+
+    public boolean arrose(int x, int y) {
+        return plateau.arrose(x, y);
+    }
+
+    public int getArrosoir() {
+        return plateau.getArrosoir();
+    }
 }

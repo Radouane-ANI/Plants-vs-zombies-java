@@ -27,7 +27,9 @@ public abstract class Plantes {
         this.changeImage = System.currentTimeMillis();
     }
 
-    public abstract void agir(boolean zombieLane, List<Zombies> zombiesAdjacents);
+    public abstract void agir(boolean zombieLane, List<Zombies> zombiesList);
+
+    public abstract void arrose();
 
     public boolean enVie() {
         return vie > 0;

@@ -7,7 +7,7 @@ public class PlanteGelee extends PlantesNormale {
     }
 
     @Override
-    public void agir(boolean zombieLane, List<Zombies> zombiesAdjacents) {
+    public void agir(boolean zombieLane, List<Zombies> zombiesList) {
         if (zombieLane) {
             if (System.currentTimeMillis() - recharge > 2250) {
                 Plateau.addBalle(new BalleGelee(degat, x, y + 0.75));

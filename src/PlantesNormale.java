@@ -11,19 +11,19 @@ public class PlantesNormale extends Plantes {
         return new PlantesNormale(130, 20, 'a', x, y, 100, img);
     }
 
-    public static PlantesNormale generesPlantesMuraille(int x, int y) {
-        String[] img = { "/Images/noix1.png", "/Images/noix2.png" };
-        return new PlantesNormale(350, 0, 'm', x, y, 50, img);
-    }
-
     @Override
-    public void agir(boolean zombieLane, List<Zombies> zombiesAdjacents){
+    public void agir(boolean zombieLane, List<Zombies> zombiesList) {
         if (zombieLane && degat > 0) {
             if (System.currentTimeMillis() - recharge > 1500) {
                 Plateau.addBalle(new Balle(degat, x, y + 0.75));
                 recharge = System.currentTimeMillis();
             }
         }
+    }
+
+    @Override
+    public void arrose() {
+        degat *= 1.5;
     }
 
 }

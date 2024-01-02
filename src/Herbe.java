@@ -112,11 +112,11 @@ public class Herbe {
         }
     }
 
-    public void attaquePlante(int posZombie, List<Zombies> zombiesAdjacents) {
+    public void attaquePlante(int posZombie, List<Zombies> zombiesList) {
         if (y <= posZombie) {
-            plante.agir(true, zombiesAdjacents);
+            plante.agir(true, zombiesList);
         } else {
-            plante.agir(false, zombiesAdjacents);
+            plante.agir(false, zombiesList);
         }
     }
 
@@ -147,5 +147,13 @@ public class Herbe {
         for (Zombies zombies : zombiesList) {
             zombies.kill();
         }
+    }
+
+    public boolean arrose() {
+        if (contientPlante()) {
+            plante.arrose();
+            return true;
+        }
+        return false;
     }
 }
