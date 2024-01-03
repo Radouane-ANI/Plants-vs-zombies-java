@@ -7,7 +7,7 @@ import java.util.Random;
 public class GestionnaireNiveaux {
     private static final Map<Integer, List<Paire>> zombiesParNiveaux = new HashMap<>();
     private static final Map<Integer, List<Paire>> plantesParNiveaux = new HashMap<>();
-    private static int niveauDebloque = 12;
+    private static int niveauDebloque = 1;
     private int niveauEnCours;
     private boolean marathon;
     private long prochainZombieMarathon = 8000;
