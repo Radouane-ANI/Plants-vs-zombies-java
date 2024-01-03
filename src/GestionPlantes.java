@@ -85,7 +85,7 @@ public class GestionPlantes {
     public List<GestionnaireNiveaux.Paire> plantesDisponibles() {
         List<GestionnaireNiveaux.Paire> dispo = niveaux.plantesDisponibles();
         for (GestionnaireNiveaux.Paire paire : dispo) {
-            System.out.println(paire.getType());
+            System.out.println(paire.getType() + " cout :" + paire.getCouts());
         }
         return dispo;
     }

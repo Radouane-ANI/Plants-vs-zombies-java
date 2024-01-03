@@ -32,5 +32,16 @@ public class MenuScene extends JPanel {
 
         });
         add(textuelButton);
+        JButton marathonButton = new JButton("mode marathon");
+        marathonButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menu.choixNiveau(-3);
+                App.showGame(menu.startGame());
+            }
+
+        });
+        add(marathonButton);
+
     }
 }

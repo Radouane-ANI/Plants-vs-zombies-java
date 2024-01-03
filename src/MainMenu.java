@@ -25,10 +25,11 @@ public class MainMenu {
     }
 
     public void choixNiveau() {
+        System.out.println("-3 pour marathon");
         Scanner sc = new Scanner(System.in);
         int choixNiveau = sc.nextInt();
         while (true) {
-           if  (choixNiveau == -1) {
+            if (choixNiveau == -1) {
                 System.exit(0);
             } else if (choixNiveau == -2) {
                 setGraphique(true);
