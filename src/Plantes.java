@@ -1,12 +1,11 @@
 import java.awt.Image;
 import java.util.List;
-
 import javax.swing.ImageIcon;
 
 public abstract class Plantes {
     protected int vie, degat;
     private char nom;
-    private long changeImage;
+    protected long changeImage;
     protected int x, y;
     private int couts, indiceImage;
     private Image[] image;

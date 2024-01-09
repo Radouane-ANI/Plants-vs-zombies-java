@@ -13,7 +13,7 @@ public class GameScene extends JPanel {
     private Image planche;
     private Plateau plateau;
     private int[] tailleHerbeX = { 240, 338, 411, 496, 572, 662, 738, 816, 893, 980 };
-    private int[] tailleHerbeY = { 60, 176, 275, 383, 476, 573 };
+    private int[] tailleHerbeY = { 60, 176, 275, 378, 476, 573 };
     private JLabel nbsoleil;
     private Game game;
     private ArrayList<Item> listCarte;
