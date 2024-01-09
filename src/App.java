@@ -68,9 +68,9 @@ public class App {
         }
     }
 
-    public static void showGame(Game g) {
+    public static void showGame(Game g, boolean mapJour) {
         fenetre.getContentPane().removeAll();
-        fenetre.getContentPane().add(new GameScene(g));
+        fenetre.getContentPane().add(new GameScene(g, mapJour));
         fenetre.revalidate();
         fenetre.repaint();
         Toolkit.getDefaultToolkit().sync();

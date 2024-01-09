@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuScene extends JPanel {
+    private boolean selectionner = true;
 
     public MenuScene() {
         MainMenu menu = new MainMenu(true);
@@ -36,12 +37,23 @@ public class MenuScene extends JPanel {
                     String numeroNiveauStr = niveauButton.getText().replaceAll("[^0-9]", "");
                     int numeroNiveau = Integer.parseInt(numeroNiveauStr);
                     menu.choixNiveau(numeroNiveau);
-                    App.showGame(menu.startGame());
+                    App.showGame(menu.startGame(), selectionner);
                 }
             });
 
             panneauNiveau.add(niveauButton);
         }
+
+        JToggleButton mapButton = new JToggleButton("map: jour");
+        mapButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectionner = !selectionner;
+                mapButton.setText(selectionner ? "map: jour" : "map: nuit");
+            }
+        });
+        autreBoutton.add(mapButton);
 
         JButton textuelButton = new JButton("mode textuel");
         textuelButton.addActionListener(new ActionListener() {
@@ -58,7 +70,7 @@ public class MenuScene extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 menu.choixNiveau(-3);
-                App.showGame(menu.startGame());
+                App.showGame(menu.startGame(), selectionner);
             }
         });
         autreBoutton.add(marathonButton);

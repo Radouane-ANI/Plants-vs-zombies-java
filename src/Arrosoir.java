@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Arrosoir extends GameScene.Carte {
+public class Arrosoir extends GameScene.Item {
     private static Random rd = new Random();
     private GameScene gameScene;
 

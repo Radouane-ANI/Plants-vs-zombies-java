@@ -16,19 +16,24 @@ public class GameScene extends JPanel {
     private int[] tailleHerbeY = { 60, 176, 275, 383, 476, 573 };
     private JLabel nbsoleil;
     private Game game;
-    private ArrayList<Carte> listCarte;
+    private ArrayList<Item> listCarte;
 
-    public GameScene(Game game) {
+    public GameScene(Game game, boolean mapJour) {
         this.setLayout(null);
         this.plateau = game.getPlateau();
-        this.jardin = new ImageIcon(getClass().getResource("/Images/jardin" + plateau.getLargeur() + ".jpg"))
-                .getImage();
+        if (mapJour) {
+            this.jardin = new ImageIcon(getClass().getResource("/Images/jardin" + plateau.getLargeur() + ".jpg"))
+                    .getImage();
+        } else {
+            this.jardin = new ImageIcon(getClass().getResource("/Images/nuit.png"))
+                    .getImage();
+        }
         this.planche = new ImageIcon(getClass().getResource("/Images/planche.jpg")).getImage();
         this.game = game;
         listCarte = new ArrayList<>();
         int decalage = 100;
         for (GestionnaireNiveaux.Paire c : game.plantesDisponibles()) {
-            Carte carte = new Carte(decalage, 8, c.getType());
+            Item carte = new Item(decalage, 8, c.getType());
             add(carte);
             Listener l = new Listener(carte);
             addMouseMotionListener(l);
@@ -71,7 +76,7 @@ public class GameScene extends JPanel {
             }
         }
 
-        for (Carte carte : listCarte) {
+        for (Item carte : listCarte) {
             carte.charge();
         }
         nbsoleil.setText(Soleil.getNbSoleil() + "");
@@ -116,12 +121,12 @@ public class GameScene extends JPanel {
         return game.arrose(mettreEchelleTableauX(y), mettreEchelleTableauY(x));
     }
 
-    public class Carte extends JLabel {
+    public class Item extends JLabel {
         private int x, y;
         private boolean mouvement, charge;
         private int type;
 
-        public Carte(int x, int y, String path) {
+        public Item(int x, int y, String path) {
             setIcon(new ImageIcon(getClass().getResource(path)));
             setBounds(x, y, 50, 60);
             this.x = x;
@@ -129,7 +134,7 @@ public class GameScene extends JPanel {
 
         }
 
-        public Carte(int x, int y, int type) {
+        public Item(int x, int y, int type) {
             setIcon(new ImageIcon(getClass().getResource("/Images/carte" + type + ".jpeg")));
             setBounds(x, y, 50, 60);
             this.x = x;
@@ -176,9 +181,9 @@ public class GameScene extends JPanel {
     }
 
     public class Listener extends MouseAdapter {
-        private Carte carte;
+        private Item carte;
 
-        public Listener(Carte carte) {
+        public Listener(Item carte) {
             this.carte = carte;
         }
 
@@ -208,11 +213,3 @@ public class GameScene extends JPanel {
         }
     }
 }
-
-// addMouseListener(new MouseAdapter() {
-// @Override
-// public void mouseClicked(MouseEvent e) {
-// System.out.println(e.getX());
-// System.out.println(e.getY());
-// }
-// });
