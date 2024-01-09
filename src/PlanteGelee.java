@@ -1,6 +1,7 @@
 import java.util.List;
 
 public class PlanteGelee extends PlantesNormale {
+    private long recharge;
 
     public PlanteGelee(int x, int y) {
         super(130, 10, 'g', x, y, 175, new String[] { "/Images/peag1.png", "/Images/peag2.png" });

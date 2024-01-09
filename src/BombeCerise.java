@@ -2,6 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class BombeCerise extends Plantes {
+    private long recharge;
 
     public BombeCerise(int x, int y) {
         super(100, 1800, 'b', x, y, 150,

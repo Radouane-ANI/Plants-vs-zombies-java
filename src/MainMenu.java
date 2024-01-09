@@ -4,6 +4,7 @@ public class MainMenu {
 
     private GestionnaireNiveaux niveau;
     private boolean graphique = true;
+    private Scanner sc = new Scanner(System.in);
 
     public MainMenu(boolean graphique) {
         niveau = new GestionnaireNiveaux();
@@ -26,7 +27,6 @@ public class MainMenu {
 
     public void choixNiveau() {
         System.out.println("-3 pour marathon");
-        Scanner sc = new Scanner(System.in);
         int choixNiveau = sc.nextInt();
         while (true) {
             if (choixNiveau == -1) {

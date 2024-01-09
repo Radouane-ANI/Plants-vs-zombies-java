@@ -54,6 +54,10 @@ public class Zombies {
             case 4:
                 z = new Zombiejournal(x);
                 break;
+            case 5:
+                z = new ZombieSportif(x);
+                break;
+
         }
         return z;
     }

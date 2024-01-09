@@ -1,6 +1,7 @@
 import java.util.List;
 
 public class PlantesNormale extends Plantes {
+    private long recharge;
 
     public PlantesNormale(int vie, int degat, char nom, int x, int y, int couts, String[] path) {
         super(vie, degat, nom, x, y, couts, path);
@@ -13,7 +14,7 @@ public class PlantesNormale extends Plantes {
 
     @Override
     public void agir(boolean zombieLane, List<Zombies> zombiesList) {
-        if (zombieLane && degat > 0) {
+        if (zombieLane) {
             if (System.currentTimeMillis() - recharge > 1500) {
                 Plateau.addBalle(new Balle(degat, x, y + 0.75));
                 recharge = System.currentTimeMillis();

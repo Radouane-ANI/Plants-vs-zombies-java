@@ -4,13 +4,11 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 public abstract class Plantes {
-    protected int vie;
-    protected int degat;
+    protected int vie, degat;
     private char nom;
     private long changeImage;
     protected int x, y;
     private int couts, indiceImage;
-    protected long recharge;
     private Image[] image;
 
     public Plantes(int vie, int degat, char nom, int x, int y, int couts, String[] path) {

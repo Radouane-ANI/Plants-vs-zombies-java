@@ -43,6 +43,10 @@ public class GestionPlantes {
 
     public void placerPlante() {
         if (plantesDispo()) {
+            System.out.println("pour poser une plante vous devez d'abord donner sa coordonnee en x puis y");
+            System.out.println("x compris entre 0 et " + (plateau.getLargeur() - 1) + " et y compris entre 0 et 8");
+            System.out.println("si vous ne voulez rien poser entrez -1");
+            System.out.println();
             System.out.println("vous placez une plante");
             System.out.println("x :");
             int x = sc.nextInt();
