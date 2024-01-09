@@ -7,7 +7,7 @@ import java.util.Random;
 public class GestionnaireNiveaux {
     private static final Map<Integer, List<Paire>> zombiesParNiveaux = new HashMap<>();
     private static final Map<Integer, List<Paire>> plantesParNiveaux = new HashMap<>();
-    private static int niveauDebloque = 10;
+    private static int niveauDebloque = 1;
     private int niveauEnCours;
     private boolean marathon;
     private long prochainZombieMarathon = 8000;
@@ -25,7 +25,7 @@ public class GestionnaireNiveaux {
         zombiesParNiveaux.put(10, genereNiveau(65, 6, 12345L));
 
         Paire[] pairePlante = { new Paire(1, 5000L), new Paire(2, 8000L), new Paire(3, 10000L), new Paire(4, 20000L),
-                new Paire(5, 10000L) };
+                new Paire(5, 10000L), new Paire(6, 20000L), new Paire(7, 5000L) };
         plantesParNiveaux.put(-3, List.of(pairePlante));
 
         plantesParNiveaux.put(1, List.of(pairePlante[0]));
@@ -34,8 +34,10 @@ public class GestionnaireNiveaux {
         plantesParNiveaux.put(4, List.of(pairePlante[0], pairePlante[1], pairePlante[3]));
         plantesParNiveaux.put(5, List.of(pairePlante[0], pairePlante[1], pairePlante[2], pairePlante[3]));
         plantesParNiveaux.put(6, List.of(pairePlante[0], pairePlante[1], pairePlante[2], pairePlante[3]));
-        plantesParNiveaux.put(7, List.of(pairePlante));
-        plantesParNiveaux.put(8, List.of(pairePlante));
+        plantesParNiveaux.put(7,
+                List.of(pairePlante[0], pairePlante[1], pairePlante[2], pairePlante[3], pairePlante[4]));
+        plantesParNiveaux.put(8, List.of(pairePlante[0], pairePlante[1], pairePlante[2], pairePlante[3], pairePlante[5],
+                pairePlante[4]));
         plantesParNiveaux.put(9, List.of(pairePlante));
         plantesParNiveaux.put(10, List.of(pairePlante));
 
@@ -257,6 +259,13 @@ public class GestionnaireNiveaux {
                 case 5:
                     couts = 175;
                     break;
+                case 6:
+                    couts = 50;
+                    break;
+                case 7:
+                    couts = 150;
+                    break;
+
             }
             return couts;
         }

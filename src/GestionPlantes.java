@@ -32,6 +32,13 @@ public class GestionPlantes {
             case 5:
                 plantes = new PlanteGelee(x, y);
                 break;
+            case 6:
+                plantes = new PLanteMine(x, y);
+                break;
+            case 7:
+                plantes = new Chomper(x, y);
+                break;
+
         }
         if (plantes != null && plantes.getCouts() <= Soleil.getNbSoleil()) {
             if (plateau.addPlante(plantes)) {

@@ -75,13 +75,17 @@ public class Game implements Runnable {
     }
 
     public boolean isLoose() {
-        return plateau.isPerdu();
+        if (plateau.isPerdu()) {
+            System.out.println("Perdu");
+            return true;
+        }return false;
     }
 
     public boolean isWin() {
         boolean win = niveau.tousApparus() && plateau.getNbZombies() == 0;
         if (win) {
             niveau.debloqueNiveau();
+            System.out.println("Bravo! Vous avez gagné");
             return win;
         }
         return false;
