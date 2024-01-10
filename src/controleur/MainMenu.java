@@ -1,9 +1,14 @@
+package controleur;
 import java.util.Scanner;
+
+import gui.App;
+import model.GestionnaireNiveaux;
 
 public class MainMenu {
 
     private GestionnaireNiveaux niveau;
     private boolean graphique = true;
+    private Scanner sc = new Scanner(System.in);
 
     public MainMenu(boolean graphique) {
         niveau = new GestionnaireNiveaux();
@@ -25,10 +30,10 @@ public class MainMenu {
     }
 
     public void choixNiveau() {
-        Scanner sc = new Scanner(System.in);
+        System.out.println("-3 pour marathon");
         int choixNiveau = sc.nextInt();
         while (true) {
-           if  (choixNiveau == -1) {
+            if (choixNiveau == -1) {
                 System.exit(0);
             } else if (choixNiveau == -2) {
                 setGraphique(true);

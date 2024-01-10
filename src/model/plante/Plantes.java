@@ -1,16 +1,16 @@
+package model.plante;
 import java.awt.Image;
 import java.util.List;
-
 import javax.swing.ImageIcon;
 
+import model.zombie.Zombies;
+
 public abstract class Plantes {
-    protected int vie;
-    protected int degat;
+    protected int vie, degat;
     private char nom;
-    private long changeImage;
+    protected long changeImage;
     protected int x, y;
     private int couts, indiceImage;
-    protected long recharge;
     private Image[] image;
 
     public Plantes(int vie, int degat, char nom, int x, int y, int couts, String[] path) {
@@ -27,7 +27,9 @@ public abstract class Plantes {
         this.changeImage = System.currentTimeMillis();
     }
 
-    public abstract void agir(boolean zombieLane, List<Zombies> zombiesAdjacents);
+    public abstract void agir(boolean zombieLane, List<Zombies> zombiesList);
+
+    public abstract void arrose();
 
     public boolean enVie() {
         return vie > 0;

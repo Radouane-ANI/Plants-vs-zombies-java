@@ -1,4 +1,19 @@
+package controleur;
+
 import java.util.Scanner;
+
+import model.GestionnaireNiveaux;
+import model.Plateau;
+import model.Soleil;
+import model.plante.BombeCerise;
+import model.plante.Chomper;
+import model.plante.PLanteMine;
+import model.plante.PlanteGelee;
+import model.plante.PlanteMuraille;
+import model.plante.Plantes;
+import model.plante.PlantesNormale;
+import model.plante.Tournesol;
+
 import java.util.List;
 
 public class GestionPlantes {
@@ -18,13 +33,13 @@ public class GestionPlantes {
         Plantes plantes = null;
         switch (type) {
             case 1:
-                plantes = PlantesNormale.generesPlantesAttaquante(x, y);
+                plantes = new PlantesNormale(x, y);
                 break;
-            // case 2:
-            // plantes =
-            // break;
+            case 2:
+                plantes = new Tournesol(x, y);
+                break;
             case 3:
-                plantes = PlantesNormale.generesPlantesMuraille(x, y);
+                plantes = new PlanteMuraille(x, y);
                 break;
             case 4:
                 plantes = new BombeCerise(x, y);
@@ -32,6 +47,13 @@ public class GestionPlantes {
             case 5:
                 plantes = new PlanteGelee(x, y);
                 break;
+            case 6:
+                plantes = new PLanteMine(x, y);
+                break;
+            case 7:
+                plantes = new Chomper(x, y);
+                break;
+
         }
         if (plantes != null && plantes.getCouts() <= Soleil.getNbSoleil()) {
             if (plateau.addPlante(plantes)) {
@@ -43,6 +65,11 @@ public class GestionPlantes {
 
     public void placerPlante() {
         if (plantesDispo()) {
+            System.out.println("pour poser une plante vous devez d'abord donner sa coordonnee en x puis y");
+            System.out.println("x compris entre 0 et " + (plateau.getLargeur() - 1) + " et y compris entre 0 et 8");
+            System.out.println("si vous ne voulez rien poser entrez -1");
+            System.out.println();
+            System.out.println("vous placez une plante");
             System.out.println("x :");
             int x = sc.nextInt();
             if (x != -1) {
@@ -59,6 +86,22 @@ public class GestionPlantes {
         }
     }
 
+    public void placerArrosoir() {
+        System.out.println("vous placez un arrosoir");
+        System.out.println("x :");
+        int x = sc.nextInt();
+        if (x != -1) {
+            System.out.println("y :");
+            int y = sc.nextInt();
+            if (!plateau.arrose(x, y)) {
+                plateau.addArrosoir();
+            }
+        }
+        if (x == -1) {
+            System.exit(0);
+        }
+    }
+
     public void placerPlante(int x, int y, int type) {
         if (x >= 0 && y >= 0 && x < plateau.getLargeur() && y < 9 && niveaux.pourcentageDispo(type) >= 1) {
             this.ajouterPlante(x, y, type);
@@ -68,7 +111,7 @@ public class GestionPlantes {
     public List<GestionnaireNiveaux.Paire> plantesDisponibles() {
         List<GestionnaireNiveaux.Paire> dispo = niveaux.plantesDisponibles();
         for (GestionnaireNiveaux.Paire paire : dispo) {
-            System.out.println(paire.getType());
+            System.out.println(paire.getType() + " cout :" + paire.getCouts());
         }
         return dispo;
     }

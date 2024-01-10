@@ -1,6 +1,8 @@
+package model;
+
 public class Soleil {
 
-    private static int nbSoleil = 25;
+    private static int nbSoleil;
     private long timer;
 
     public Soleil() {
@@ -26,7 +28,7 @@ public class Soleil {
         nbSoleil -= nb;
     }
 
-    public void ajouteSoleil() {
+    public static void ajouteSoleil() {
         nbSoleil += 25;
     }
 

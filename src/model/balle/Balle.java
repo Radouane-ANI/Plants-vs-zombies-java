@@ -1,6 +1,9 @@
+package model.balle;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
+
+import model.zombie.Zombies;
 
 public class Balle {
 

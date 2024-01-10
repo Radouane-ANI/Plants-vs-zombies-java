@@ -1,3 +1,4 @@
+package model.zombie;
 import javax.swing.ImageIcon;
 
 public class Zombiejournal extends Zombies {

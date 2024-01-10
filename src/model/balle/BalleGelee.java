@@ -1,4 +1,7 @@
+package model.balle;
 import javax.swing.ImageIcon;
+
+import model.zombie.Zombies;
 
 public class BalleGelee extends Balle{
 

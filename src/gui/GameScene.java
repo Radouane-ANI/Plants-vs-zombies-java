@@ -1,8 +1,19 @@
+package gui;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 
 import javax.swing.*;
+
+import controleur.Game;
+import model.GestionnaireNiveaux;
+import model.Plateau;
+import model.Soleil;
+import model.Tondeuse;
+import model.balle.Balle;
+import model.plante.Plantes;
+import model.zombie.Zombies;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -13,22 +24,27 @@ public class GameScene extends JPanel {
     private Image planche;
     private Plateau plateau;
     private int[] tailleHerbeX = { 240, 338, 411, 496, 572, 662, 738, 816, 893, 980 };
-    private int[] tailleHerbeY = { 60, 176, 275, 383, 476, 573 };
+    private int[] tailleHerbeY = { 60, 176, 275, 378, 476, 573 };
     private JLabel nbsoleil;
     private Game game;
-    private ArrayList<Carte> listCarte;
+    private ArrayList<Item> listCarte;
 
-    public GameScene(Game game) {
+    public GameScene(Game game, boolean mapJour) {
         this.setLayout(null);
         this.plateau = game.getPlateau();
-        this.jardin = new ImageIcon(getClass().getResource("/Images/jardin" + plateau.getLargeur() + ".jpg"))
-                .getImage();
+        if (mapJour) {
+            this.jardin = new ImageIcon(getClass().getResource("/Images/jardin" + plateau.getLargeur() + ".jpg"))
+                    .getImage();
+        } else {
+            this.jardin = new ImageIcon(getClass().getResource("/Images/nuit.png"))
+                    .getImage();
+        }
         this.planche = new ImageIcon(getClass().getResource("/Images/planche.jpg")).getImage();
         this.game = game;
         listCarte = new ArrayList<>();
         int decalage = 100;
         for (GestionnaireNiveaux.Paire c : game.plantesDisponibles()) {
-            Carte carte = new Carte(decalage, 8, c.getType());
+            Item carte = new Item(decalage, 8, c.getType());
             add(carte);
             Listener l = new Listener(carte);
             addMouseMotionListener(l);
@@ -68,14 +84,20 @@ public class GameScene extends JPanel {
         for (int i = 0; i < plateau.getTondeuse().length; i++) {
             if (plateau.getTondeuse()[i]) {
                 g.drawImage(tondeuse, 140, mettreEchelleJardinY(i), null);
-
             }
         }
 
-        for (Carte carte : listCarte) {
+        for (Item carte : listCarte) {
             carte.charge();
         }
         nbsoleil.setText(Soleil.getNbSoleil() + "");
+        if (game.getArrosoir() > 0) {
+            Arrosoir arrosoir = new Arrosoir(this);
+            add(arrosoir);
+            Listener l = new Listener(arrosoir);
+            addMouseMotionListener(l);
+            addMouseListener(l);
+        }
     }
 
     private int mettreEchelleJardinX(double y) {
@@ -106,12 +128,24 @@ public class GameScene extends JPanel {
         return tailleHerbeY.length;
     }
 
-    public class Carte extends JLabel {
+    public boolean arrose(int x, int y) {
+        return game.arrose(mettreEchelleTableauX(y), mettreEchelleTableauY(x));
+    }
+
+    public class Item extends JLabel {
         private int x, y;
         private boolean mouvement, charge;
         private int type;
 
-        public Carte(int x, int y, int type) {
+        public Item(int x, int y, String path) {
+            setIcon(new ImageIcon(getClass().getResource(path)));
+            setBounds(x, y, 50, 60);
+            this.x = x;
+            this.y = y;
+
+        }
+
+        public Item(int x, int y, int type) {
             setIcon(new ImageIcon(getClass().getResource("/Images/carte" + type + ".jpeg")));
             setBounds(x, y, 50, 60);
             this.x = x;
@@ -145,6 +179,7 @@ public class GameScene extends JPanel {
 
         public void charge() {
             if (!mouvement) {
+                charge = true;
                 double ratio = game.pourcentageDispo(type);
                 if (ratio > 1 || ratio < 0) {
                     ratio = 1;
@@ -157,9 +192,9 @@ public class GameScene extends JPanel {
     }
 
     public class Listener extends MouseAdapter {
-        private Carte carte;
+        private Item carte;
 
-        public Listener(Carte carte) {
+        public Listener(Item carte) {
             this.carte = carte;
         }
 
@@ -177,7 +212,6 @@ public class GameScene extends JPanel {
                 carte.retourPos();
                 carte.posePlante(e.getX(), e.getY());
                 carte.setMouvement(false);
-                carte.setCharge(true);
             }
         }
 
@@ -190,11 +224,3 @@ public class GameScene extends JPanel {
         }
     }
 }
-
-// addMouseListener(new MouseAdapter() {
-// @Override
-// public void mouseClicked(MouseEvent e) {
-// System.out.println(e.getX());
-// System.out.println(e.getY());
-// }
-// });

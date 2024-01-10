@@ -1,10 +1,17 @@
+package controleur;
 import java.util.List;
+
+import gui.App;
+import model.GestionnaireNiveaux;
+import model.Plateau;
+import model.Soleil;
+import model.zombie.Zombies;
 
 public class Game implements Runnable {
 
     private Plateau plateau;
     private GestionnaireNiveaux niveau;
-    private Long temps;
+    private long temps, tempsTextuel;
     private Soleil soleil;
     private GestionPlantes gestionPlantes;
     private boolean graphique;
@@ -37,6 +44,7 @@ public class Game implements Runnable {
     public void run() {
         double intervalle = System.nanoTime() + 1000000000 / 60;
         temps = System.currentTimeMillis();
+        tempsTextuel = System.currentTimeMillis();
         while (jeuxEncours()) {
             this.ajouteZombie();
             soleil.generesSoleil();
@@ -62,22 +70,29 @@ public class Game implements Runnable {
     }
 
     public void affichageTerminal() {
-        System.out.println("pour poser une plante vous devez d'abord donner sa coordonnee en x puis y");
-        System.out.println("x compris entre 0 et " + (niveau.getLargeur() - 1) + " et y compris entre 0 et 8");
-        System.out.println("si vous ne voulez rien poser entrez -1");
         System.out.println("vous avez " + soleil + " soleil");
         System.out.println(plateau);
-        this.gestionPlantes.placerPlante();
+        if (System.currentTimeMillis() - tempsTextuel > 7000) {
+            this.gestionPlantes.placerPlante();
+            if (getArrosoir() > 0) {
+                this.gestionPlantes.placerArrosoir();
+            }
+            tempsTextuel = System.currentTimeMillis();
+        }
     }
 
     public boolean isLoose() {
-        return plateau.isPerdu();
+        if (plateau.isPerdu()) {
+            System.out.println("Perdu");
+            return true;
+        }return false;
     }
 
     public boolean isWin() {
         boolean win = niveau.tousApparus() && plateau.getNbZombies() == 0;
         if (win) {
             niveau.debloqueNiveau();
+            System.out.println("Bravo! Vous avez gagné");
             return win;
         }
         return false;
@@ -104,5 +119,13 @@ public class Game implements Runnable {
 
     public double pourcentageDispo(int type) {
         return gestionPlantes.pourcentageDispo(type);
+    }
+
+    public boolean arrose(int x, int y) {
+        return plateau.arrose(x, y);
+    }
+
+    public int getArrosoir() {
+        return plateau.getArrosoir();
     }
 }

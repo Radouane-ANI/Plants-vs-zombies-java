@@ -1,8 +1,11 @@
+package model.zombie;
 import java.awt.Image;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
+
+import model.plante.Plantes;
 
 public class Zombies {
     protected int vie;
@@ -54,6 +57,10 @@ public class Zombies {
             case 4:
                 z = new Zombiejournal(x);
                 break;
+            case 5:
+                z = new ZombieSportif(x);
+                break;
+
         }
         return z;
     }
