@@ -138,9 +138,9 @@ public class GameScene extends JPanel {
 
     public void afficheSoleil() {
         if (Soleil.getAfficheSoleil() > 0) {
-            JLabel soleilImage = new JLabel(new ImageIcon(getClass().getResource("/Images/Soleil.jpg")));
+            JLabel soleilImage = new JLabel(new ImageIcon(getClass().getResource("/Images/Soleil.png")));
             Random rd = new Random();
-            soleilImage.setBounds(50+rd.nextInt(900), 50 + rd.nextInt(350), 50, 50);
+            soleilImage.setBounds(250+rd.nextInt(900), 50 + rd.nextInt(350), 50, 50);
             soleilImage.setVisible(true);
             soleilImage.addMouseListener(new MouseAdapter() {
                 @Override
