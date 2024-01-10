@@ -1,12 +1,16 @@
 package model;
 
+import gui.App;
+
 public class Soleil {
 
     private static int nbSoleil;
     private long timer;
+    private static int afficheSoleil;
 
     public Soleil() {
         nbSoleil = 25;
+        timer = System.currentTimeMillis();
     }
 
     public static int getNbSoleil() {
@@ -19,7 +23,7 @@ public class Soleil {
 
     public void generesSoleil() {
         if (System.currentTimeMillis() - timer > 5000) {
-            nbSoleil += 25;
+            addSoleil();
             timer = System.currentTimeMillis();
         }
     }
@@ -29,7 +33,26 @@ public class Soleil {
     }
 
     public static void ajouteSoleil() {
+        if (App.isVisible()) {
+            addAfficheSoleil();
+        } else {
+            addSoleil();
+        }
+    }
+
+    public static void addSoleil() {
         nbSoleil += 25;
+    }
+
+    public static int getAfficheSoleil() {
+        if (afficheSoleil > 0) {
+            return afficheSoleil--;
+        }
+        return afficheSoleil;
+    }
+
+    public static void addAfficheSoleil() {
+        afficheSoleil++;
     }
 
     public String toString() {

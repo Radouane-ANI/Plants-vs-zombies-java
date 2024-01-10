@@ -1,4 +1,5 @@
 package gui;
+
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -12,10 +13,6 @@ public class App {
 
     private static JFrame fenetre;
     private static boolean visible = true;
-
-    public static JFrame getFenetre() {
-        return fenetre;
-    }
 
     public static void main(String[] args) throws Exception {
         fenetre = new JFrame("Plants Vs Zombies");
@@ -51,6 +48,14 @@ public class App {
     public static void setVisible(boolean graphique) {
         fenetre.setVisible(graphique);
         visible = graphique;
+    }
+
+    public static boolean isVisible() {
+        return visible;
+    }
+
+    public static JFrame getFenetre() {
+        return fenetre;
     }
 
     public static void repaint() {

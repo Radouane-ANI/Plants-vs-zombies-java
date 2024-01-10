@@ -1,4 +1,5 @@
 package gui;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -17,6 +18,7 @@ import model.zombie.Zombies;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameScene extends JPanel {
 
@@ -52,6 +54,7 @@ public class GameScene extends JPanel {
             decalage += 55;
             listCarte.add(carte);
         }
+
         nbsoleil = new JLabel("25");
         nbsoleil.setBounds(48, 36, 50, 50);
         add(nbsoleil);
@@ -90,6 +93,7 @@ public class GameScene extends JPanel {
         for (Item carte : listCarte) {
             carte.charge();
         }
+        afficheSoleil();
         nbsoleil.setText(Soleil.getNbSoleil() + "");
         if (game.getArrosoir() > 0) {
             Arrosoir arrosoir = new Arrosoir(this);
@@ -130,6 +134,23 @@ public class GameScene extends JPanel {
 
     public boolean arrose(int x, int y) {
         return game.arrose(mettreEchelleTableauX(y), mettreEchelleTableauY(x));
+    }
+
+    public void afficheSoleil() {
+        if (Soleil.getAfficheSoleil() > 0) {
+            JLabel soleilImage = new JLabel(new ImageIcon(getClass().getResource("/Images/Soleil.jpg")));
+            Random rd = new Random();
+            soleilImage.setBounds(50+rd.nextInt(900), 50 + rd.nextInt(350), 50, 50);
+            soleilImage.setVisible(true);
+            soleilImage.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    soleilImage.setVisible(false);
+                    Soleil.addSoleil();
+                }
+            });
+            add(soleilImage);
+        }
     }
 
     public class Item extends JLabel {
