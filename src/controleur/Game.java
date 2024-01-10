@@ -1,4 +1,11 @@
+package controleur;
 import java.util.List;
+
+import gui.App;
+import model.GestionnaireNiveaux;
+import model.Plateau;
+import model.Soleil;
+import model.zombie.Zombies;
 
 public class Game implements Runnable {
 

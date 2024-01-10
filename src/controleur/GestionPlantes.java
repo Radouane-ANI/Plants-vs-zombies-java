@@ -1,4 +1,19 @@
+package controleur;
+
 import java.util.Scanner;
+
+import model.GestionnaireNiveaux;
+import model.Plateau;
+import model.Soleil;
+import model.plante.BombeCerise;
+import model.plante.Chomper;
+import model.plante.PLanteMine;
+import model.plante.PlanteGelee;
+import model.plante.PlanteMuraille;
+import model.plante.Plantes;
+import model.plante.PlantesNormale;
+import model.plante.Tournesol;
+
 import java.util.List;
 
 public class GestionPlantes {
@@ -18,11 +33,11 @@ public class GestionPlantes {
         Plantes plantes = null;
         switch (type) {
             case 1:
-                plantes = PlantesNormale.generesPlantesAttaquante(x, y);
+                plantes = new PlantesNormale(x, y);
                 break;
-            // case 2:
-            // plantes =
-            // break;
+            case 2:
+                plantes = new Tournesol(x, y);
+                break;
             case 3:
                 plantes = new PlanteMuraille(x, y);
                 break;

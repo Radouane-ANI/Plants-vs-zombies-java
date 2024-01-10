@@ -1,8 +1,11 @@
+package model.zombie;
 import java.awt.Image;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
+
+import model.plante.Plantes;
 
 public class Zombies {
     protected int vie;

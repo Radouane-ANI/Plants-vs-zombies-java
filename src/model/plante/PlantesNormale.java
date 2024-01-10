@@ -1,15 +1,20 @@
+package model.plante;
+
 import java.util.List;
+
+import model.Plateau;
+import model.balle.Balle;
+import model.zombie.Zombies;
 
 public class PlantesNormale extends Plantes {
     private long recharge;
 
-    public PlantesNormale(int vie, int degat, char nom, int x, int y, int couts, String[] path) {
+    protected PlantesNormale(int vie, int degat, char nom, int x, int y, int couts, String[] path) {
         super(vie, degat, nom, x, y, couts, path);
     }
 
-    public static PlantesNormale generesPlantesAttaquante(int x, int y) {
-        String[] img = { "/Images/peashooter1.png", "/Images/peashooter2.png" };
-        return new PlantesNormale(130, 20, 'a', x, y, 100, img);
+    public PlantesNormale(int x, int y) {
+        super(130, 20, 'N', x, y, 100, new String[] { "/Images/peashooter1.png", "/Images/peashooter2.png" });
     }
 
     @Override

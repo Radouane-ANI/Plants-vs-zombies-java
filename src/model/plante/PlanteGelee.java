@@ -1,10 +1,15 @@
+package model.plante;
 import java.util.List;
+
+import model.Plateau;
+import model.balle.BalleGelee;
+import model.zombie.Zombies;
 
 public class PlanteGelee extends PlantesNormale {
     private long recharge;
 
     public PlanteGelee(int x, int y) {
-        super(130, 10, 'g', x, y, 175, new String[] { "/Images/peag1.png", "/Images/peag2.png" });
+        super(130, 10, 'G', x, y, 175, new String[] { "/Images/peag1.png", "/Images/peag2.png" });
     }
 
     @Override

@@ -1,10 +1,13 @@
+package model.plante;
 import java.util.List;
+
+import model.zombie.Zombies;
 
 public class PLanteMine extends Plantes {
     private long recharge;
 
     public PLanteMine(int x, int y) {
-        super(300, 1800, 'b', x, y, 50, new String[] { "/Images/PotatoMine.png", "/Images/PotatoMine1.png" });
+        super(300, 1800, 'M', x, y, 50, new String[] { "/Images/PotatoMine.png", "/Images/PotatoMine1.png" });
         recharge = System.currentTimeMillis();
     }
 

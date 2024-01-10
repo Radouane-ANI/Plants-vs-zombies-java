@@ -1,11 +1,15 @@
+package model.plante;
 import java.util.List;
+
+import model.zombie.Zombies;
+
 import java.util.ArrayList;
 
 public class BombeCerise extends Plantes {
     private long recharge;
 
     public BombeCerise(int x, int y) {
-        super(100, 1800, 'b', x, y, 150,
+        super(100, 1800, 'B', x, y, 150,
                 new String[] { "/Images/cherrybomb1.png", "/Images/cherrybomb2.png", "/Images/boom.png" });
         recharge = System.currentTimeMillis();
     }

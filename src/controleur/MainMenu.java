@@ -1,4 +1,8 @@
+package controleur;
 import java.util.Scanner;
+
+import gui.App;
+import model.GestionnaireNiveaux;
 
 public class MainMenu {
 

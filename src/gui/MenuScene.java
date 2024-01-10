@@ -1,4 +1,8 @@
+package gui;
 import javax.swing.*;
+
+import controleur.MainMenu;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

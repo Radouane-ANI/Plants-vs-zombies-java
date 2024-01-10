@@ -1,8 +1,19 @@
+package gui;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 
 import javax.swing.*;
+
+import controleur.Game;
+import model.GestionnaireNiveaux;
+import model.Plateau;
+import model.Soleil;
+import model.Tondeuse;
+import model.balle.Balle;
+import model.plante.Plantes;
+import model.zombie.Zombies;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;

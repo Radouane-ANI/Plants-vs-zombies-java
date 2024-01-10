@@ -1,6 +1,9 @@
+package model.plante;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.ImageIcon;
+
+import model.zombie.Zombies;
 
 public abstract class Plantes {
     protected int vie, degat;

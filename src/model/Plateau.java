@@ -1,5 +1,12 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.Random;
+
+import model.balle.Balle;
+import model.plante.Plantes;
+import model.zombie.Zombies;
+
 import java.util.Iterator;
 
 public class Plateau {

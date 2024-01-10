@@ -1,5 +1,9 @@
+package model.plante;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+
+import model.zombie.Zombies;
+
 import java.util.List;
 
 public class Chomper extends Plantes {
@@ -8,7 +12,7 @@ public class Chomper extends Plantes {
     private Image[] imageRecharge;
 
     public Chomper(int x, int y) {
-        super(300, 800, 'c', x, y, 150, new String[] { "/Images/Chomper1.png", "/Images/Chomper0.png" });
+        super(300, 800, 'C', x, y, 150, new String[] { "/Images/Chomper1.png", "/Images/Chomper0.png" });
         String[] path = { "/Images/ChomperDigest.png", "/Images/ChomperDigest1.png" };
         imageRecharge = new Image[path.length];
         for (int i = 0; i < path.length; i++) {

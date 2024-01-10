@@ -1,8 +1,12 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import model.zombie.Zombies;
 
 public class GestionnaireNiveaux {
     private static final Map<Integer, List<Paire>> zombiesParNiveaux = new HashMap<>();

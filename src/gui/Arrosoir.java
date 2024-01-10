@@ -1,3 +1,4 @@
+package gui;
 import java.util.Random;
 
 public class Arrosoir extends GameScene.Item {

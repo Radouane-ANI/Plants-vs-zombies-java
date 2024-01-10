@@ -1,3 +1,5 @@
+package model;
+
 public class Soleil {
 
     private static int nbSoleil;
@@ -26,7 +28,7 @@ public class Soleil {
         nbSoleil -= nb;
     }
 
-    public void ajouteSoleil() {
+    public static void ajouteSoleil() {
         nbSoleil += 25;
     }
 
