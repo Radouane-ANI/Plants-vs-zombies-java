@@ -1,18 +1,28 @@
-## Getting Started
+Plants vs. Zombies - README
+Introduction
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Bienvenue dans le projet Plants vs. Zombies ! Ce projet est une implémentation Java du célèbre jeu. Suivez les instructions ci-dessous pour compiler, exécuter et créer un fichier JAR de l'application.
+Prérequis
 
-## Folder Structure
+    Assurez-vous d'avoir Java installé sur votre machine. Vous pouvez le télécharger sur le site officiel de Java.
 
-The workspace contains two folders by default, where:
+Exécution à partir du fichier JAR
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+Vous pouvez lancez l'application avec la commande suivante :
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+java -jar PlantsVsZombies.jar
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+Compilation
 
-## Dependency Management
+Utilisez la commande suivante pour compiler le projet :
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+javac -cp src -d bin src/gui/App.java
+
+Exécution
+
+Après la compilation, lancez l'application avec la commande suivante :
+
+
+java -cp bin:src gui.App
+
+
