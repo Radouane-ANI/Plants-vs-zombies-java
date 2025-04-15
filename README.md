@@ -1,3 +1,5 @@
+![Logo du projet](banniere.png)
+
 Plants vs. Zombies - README
 Introduction
 
